@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Releases
 
+### [0.1.1] - 2024-07-18
+
+* Change title of README.md
+
 ### [0.1.0] - 2024-07-18
 
 * Initial release with first public holiday builder
