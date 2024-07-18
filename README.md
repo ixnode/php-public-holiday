@@ -1,4 +1,4 @@
-# PHP Coordinate
+# PHP Public Holiday
 
 [![Release](https://img.shields.io/github/v/release/ixnode/php-public-holiday)](https://github.com/ixnode/php-public-holiday/releases)
 [![](https://img.shields.io/github/release-date/ixnode/php-public-holiday)](https://github.com/ixnode/php-public-holiday/releases)
