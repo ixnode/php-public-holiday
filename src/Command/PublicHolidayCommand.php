@@ -17,6 +17,8 @@ use Ahc\Cli\Input\Command;
 use Ahc\Cli\Output\Color;
 use Ahc\Cli\Output\Writer;
 use Exception;
+use Ixnode\PhpPublicHoliday\Configuration\Format;
+use Ixnode\PhpPublicHoliday\Configuration\Language;
 use Ixnode\PhpPublicHoliday\Holiday;
 use LogicException;
 
@@ -30,6 +32,7 @@ use LogicException;
  * @property string|null $country
  * @property string|null $state
  * @property int $year
+ * @property string|null $language
  * @property string|null $format
  */
 class PublicHolidayCommand extends Command
@@ -37,18 +40,6 @@ class PublicHolidayCommand extends Command
     private const SUCCESS = 0;
 
     private const INVALID = 2;
-
-    private const FORMAT_TEXT = 'text';
-
-    private const FORMAT_JSON = 'json';
-
-    private const FORMAT_CSV = 'csv';
-
-    private const FORMATS_ALLOWED = [
-        self::FORMAT_TEXT,
-        self::FORMAT_JSON,
-        self::FORMAT_CSV,
-    ];
 
     private Writer $writer;
 
@@ -63,7 +54,18 @@ class PublicHolidayCommand extends Command
             ->argument('country', 'The country to be used.')
             ->argument('state', 'The federal state to be used.')
             ->option('--year', 'The year to be displayed.', 'intval', (int) date('Y'))
-            ->option('--format', 'The format to be displayed. Options: text, json, csv', $this->filterFormat(...), 'text');
+            ->option(
+                '--language',
+                sprintf('The language to be displayed. Supported options: %s', implode(', ', Language::LANGUAGES_SUPPORTED)),
+                $this->filterLanguage(...),
+                Language::DE
+            )
+            ->option(
+                '--format',
+                sprintf('The format to be displayed. Supported options: %s', implode(', ', Format::FORMATS_SUPPORTED)),
+                $this->filterFormat(...),
+                Format::FORMAT_TEXT
+            )
         ;
     }
 
@@ -77,6 +79,13 @@ class PublicHolidayCommand extends Command
     public function execute(): int
     {
         $this->writer = $this->writer();
+
+        /* Check given language. */
+        $language = $this->language;
+        if (is_null($language)) {
+            /* Error already printed via self::filterLanguage. */
+            return self::INVALID;
+        }
 
         /* Check given format. */
         $format = $this->format;
@@ -104,20 +113,23 @@ class PublicHolidayCommand extends Command
 
         /* Print public holidays according to given format. */
         match ($format) {
-            self::FORMAT_CSV => $this->printCsv(
+            Format::FORMAT_CSV => $this->printCsv(
                 country: $country,
                 state: $state,
                 year: $year,
+                language: $language,
             ),
-            self::FORMAT_JSON => $this->printJson(
+            Format::FORMAT_JSON => $this->printJson(
                 country: $country,
                 state: $state,
                 year: $year,
+                language: $language,
             ),
-            self::FORMAT_TEXT => $this->printText(
+            Format::FORMAT_TEXT => $this->printText(
                 country: $country,
                 state: $state,
                 year: $year,
+                language: $language,
             ),
             default => throw new LogicException(sprintf('Unknown or unsupported format: %s', $format)),
         };
@@ -131,12 +143,18 @@ class PublicHolidayCommand extends Command
      * @param string $country
      * @param string $state
      * @param int $year
+     * @param string $language
      * @return void
      * @throws Exception
      */
-    private function printCsv(string $country, string $state, int $year): void
+    private function printCsv(string $country, string $state, int $year, string $language): void
     {
-        $holiday = new Holiday($year, $country, $state);
+        $holiday = new Holiday(
+            year: $year,
+            country: $country,
+            state: $state,
+            language: $language
+        );
 
         /* Print CSV. */
         print $holiday->getCsv();
@@ -148,12 +166,18 @@ class PublicHolidayCommand extends Command
      * @param string $country
      * @param string $state
      * @param int $year
+     * @param string $language
      * @return void
      * @throws Exception
      */
-    private function printJson(string $country, string $state, int $year): void
+    private function printJson(string $country, string $state, int $year, string $language): void
     {
-        $holiday = new Holiday($year, $country, $state);
+        $holiday = new Holiday(
+            year: $year,
+            country: $country,
+            state: $state,
+            language: $language
+        );
 
         print $holiday->getJson().PHP_EOL;
     }
@@ -164,17 +188,24 @@ class PublicHolidayCommand extends Command
      * @param string $country
      * @param string $state
      * @param int $year
+     * @param string $language
      * @return void
      * @throws Exception
      */
-    private function printText(string $country, string $state, int $year): void
+    private function printText(string $country, string $state, int $year, string $language): void
     {
-        $holiday = new Holiday($year, $country, $state);
+        $holiday = new Holiday(
+            year: $year,
+            country: $country,
+            state: $state,
+            language: $language
+        );
 
         print PHP_EOL;
-        print sprintf('Country: %s', $country).PHP_EOL;
-        print sprintf('State:   %s', $state).PHP_EOL;
-        print sprintf('Year:    %d', $year).PHP_EOL;
+        print sprintf('Country:  %s', $country).PHP_EOL;
+        print sprintf('State:    %s', $state).PHP_EOL;
+        print sprintf('Year:     %d', $year).PHP_EOL;
+        print sprintf('Language: %s', $language).PHP_EOL;
         print PHP_EOL;
 
         foreach ($holiday->getHolidays() as $holiday) {
@@ -182,6 +213,25 @@ class PublicHolidayCommand extends Command
         }
 
         print PHP_EOL;
+    }
+
+    /**
+     * Language filter.
+     *
+     * @param string $language
+     * @return string|null
+     * @throws Exception
+     */
+    public function filterLanguage(string $language): string|null
+    {
+        $language = strtoupper($language);
+
+        if (!in_array($language, Language::LANGUAGES_SUPPORTED, true)) {
+            print sprintf('Invalid language given "%s". Available options: %s', $language, implode(', ', Language::LANGUAGES_SUPPORTED)).PHP_EOL;
+            return null;
+        }
+
+        return $language;
     }
 
     /**
@@ -193,8 +243,8 @@ class PublicHolidayCommand extends Command
      */
     public function filterFormat(string $format): string|null
     {
-        if (!in_array($format, self::FORMATS_ALLOWED, true)) {
-            print sprintf('Invalid format given "%s".', $format).PHP_EOL;
+        if (!in_array($format, Format::FORMATS_SUPPORTED, true)) {
+            print sprintf('Invalid format given "%s". Available options: %s', $format, implode(', ', Format::FORMATS_SUPPORTED)).PHP_EOL;
             return null;
         }
 

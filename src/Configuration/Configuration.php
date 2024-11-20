@@ -22,7 +22,6 @@ namespace Ixnode\PhpPublicHoliday\Configuration;
  */
 readonly class Configuration
 {
-
     final public const BUSS_UND_BETTAG = 'Buß- und Bettag';
 
     final public const DAY_SATURDAY = 6;

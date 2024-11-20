@@ -66,9 +66,10 @@ vendor/bin/php-public-holiday ph DE SN --year=2024
 
 ```bash
 
-Country: DE
-State:   SN
-Year:    2024
+Country:  DE
+State:    SN
+Year:     2025
+Language: DE
 
 - 2024-01-01: Neujahr
 - 2024-03-29: Karfreitag
@@ -81,6 +82,38 @@ Year:    2024
 - 2024-10-03: Tag der deutschen Einheit
 - 2024-12-25: Erster Weihnachtsfeiertag
 - 2024-12-26: Zweiter Weihnachtsfeiertag
+
+```
+
+### Output formats (`--language`)
+
+Available options:
+
+* `de` (default)
+* `en`
+
+```bash
+bin/console ph DE SN --year=2025 --language=en --format=text
+```
+
+```bash
+
+Country:  DE
+State:    SN
+Year:     2025
+Language: EN
+
+- 2025-01-01: New Year
+- 2025-04-18: Good Friday
+- 2025-04-20: Easter Sunday
+- 2025-04-21: Easter Monday
+- 2025-05-01: Labour Day
+- 2025-05-29: Feast of the Ascension
+- 2025-06-08: Whit Sunday
+- 2025-06-09: Whit Monday
+- 2025-10-03: German Unity Day
+- 2025-12-25: Christmas Day
+- 2025-12-26: Boxing Day
 
 ```
 
@@ -103,6 +136,7 @@ bin/console ph DE SN --year=2025 --format=json
     "country": "DE",
     "state": "SN",
     "year": 2025,
+    "language": "DE",
     "holidays": [
         {
             "date": "2025-01-01",

@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace Ixnode\PhpPublicHoliday\Configuration\Country;
 
 use Ixnode\PhpPublicHoliday\Configuration\Configuration;
+use Ixnode\PhpPublicHoliday\Translation\TranslationKeys;
 
 /**
  * Class CountryDe
@@ -77,87 +78,108 @@ readonly class CountryDe
     final public const STATE_TH = 'Thuringia';
 
     final public const HOLIDAYS = [
-        'Neujahr' => [
+        [
+            'name' => TranslationKeys::NEW_YEAR,
             'date' => '01-01',
             'states' => [self::STATE_ALL],
         ],
-        'Heilige drei Könige' => [
+        [
+            'name' => TranslationKeys::BIBLICAL_MAGI,
             'date' => '01-06',
             'states' => [self::STATE_BW, self::STATE_BY, self::STATE_ST],
         ],
-        'Frauentag' => [
+        [
+            'name' => TranslationKeys::INTERNATIONAL_WOMEN_S_DAY,
             'date' => '03-08',
             'states' => [self::STATE_BE, self::STATE_MV],
         ],
-        'Gründonnerstag' => [
+        [
+            'name' => TranslationKeys::MAUNDY_THURSDAY,
             'date' => '-3 days',
             'states' => [self::STATE_BW],
         ],
-        'Karfreitag' => [
+        [
+            'name' => TranslationKeys::GOOD_FRIDAY,
             'date' => '-2 days',
             'states' => [self::STATE_ALL],
         ],
-        'Ostersonntag' => [
+        [
+            'name' => TranslationKeys::EASTER_SUNDAY,
             'date' => '+0 days',
             'states' => [self::STATE_ALL],
         ],
-        'Ostermontag' => [
+        [
+            'name' => TranslationKeys::EASTER_MONDAY,
             'date' => '+1 day',
             'states' => [self::STATE_ALL],
         ],
-        'Christi Himmelfahrt' => [
+        [
+            'name' => TranslationKeys::FEAST_OF_THE_ASCENSION,
             'date' => '+39 days',
             'states' => [self::STATE_ALL],
         ],
-        'Pfingstsonntag' => [
+        [
+            'name' => TranslationKeys::WHIT_SUNDAY,
             'date' => '+49 days',
             'states' => [self::STATE_ALL],
         ],
-        'Pfingstmontag' => [
+        [
+            'name' => TranslationKeys::WHIT_MONDAY,
             'date' => '+50 days',
             'states' => [self::STATE_ALL],
         ],
-        'Tag der Arbeit' => [
+        [
+            'name' => TranslationKeys::LABOUR_DAY,
             'date' => '05-01',
             'states' => [self::STATE_ALL],
         ],
-        'Fronleichnam' => [
+        [
+            'name' => TranslationKeys::FEAST_OF_CORPUS_CHRISTI,
             'date' => '+60 days',
             'states' => [self::STATE_BW, self::STATE_BY, self::STATE_HE, self::STATE_NW, self::STATE_RP, self::STATE_SL, self::STATE_SN, self::STATE_TH],
         ],
-        'Augsburger Friedensfest' => [
+        [
+            'name' => TranslationKeys::AUGSBURG_PEACE_FESTIVAL,
             'date' => '08-08',
             'states' => [self::STATE_BY],
         ],
-        'Mariä Himmelfahrt' => [
+        [
+            'name' => TranslationKeys::ASSUMPTION_OF_MARY,
             'date' => '08-15',
             'states' => [self::STATE_BY, self::STATE_SL],
         ],
-        'Weltkindertag' => [
+        [
+            'name' => TranslationKeys::CHILDREN_S_DAY,
             'date' => '09-20',
             'states' => [self::STATE_TH],
         ],
-        'Tag der deutschen Einheit' => [
+        [
+            'name' => TranslationKeys::GERMAN_UNITY_DAY,
             'date' => '10-03',
             'states' => [self::STATE_ALL],
         ],
-        'Reformationstag' => [
+        [
+            'name' => TranslationKeys::REFORMATION_DAY,
             'date' => '10-31',
             'states' => [self::STATE_BB, self::STATE_HB, self::STATE_HH, self::STATE_MV, self::STATE_NI, self::STATE_SN, self::STATE_ST, self::STATE_SH, self::STATE_TH],
         ],
-        'Allerheiligen' => [
+        [
+            'name' => TranslationKeys::ALL_SAINTS_DAY,
             'date' => '11-01',
             'states' => [self::STATE_BW, self::STATE_BY, self::STATE_NW, self::STATE_RP, self::STATE_SL],
         ],
-        'Buß- und Bettag' => [
+        [
+            'name' => TranslationKeys::BUSS_UND_BETTAG,
             'date' => Configuration::BUSS_UND_BETTAG,
             'states' => [self::STATE_SN],
         ],
-        'Erster Weihnachtsfeiertag' => [
+        [
+            'name' => TranslationKeys::CHRISTMAS_DAY,
             'date' => '12-25',
             'states' => [self::STATE_ALL],
         ],
-        'Zweiter Weihnachtsfeiertag' => [
+        [
+            'name' => TranslationKeys::BOXING_DAY,
             'date' => '12-26',
             'states' => [self::STATE_ALL],
         ],

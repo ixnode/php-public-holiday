@@ -19,8 +19,11 @@ use Exception;
 use Ixnode\PhpPublicHoliday\Configuration\Configuration;
 use Ixnode\PhpPublicHoliday\Configuration\Country;
 use Ixnode\PhpPublicHoliday\Configuration\Country\CountryDe;
+use Ixnode\PhpPublicHoliday\Configuration\Language;
 use Ixnode\PhpPublicHoliday\Tests\Unit\HolidayTest;
 use Ixnode\PhpPublicHoliday\Tools\ArrayToCsv;
+use Ixnode\PhpPublicHoliday\Translation\TranslationDe;
+use Ixnode\PhpPublicHoliday\Translation\TranslationEn;
 use LogicException;
 
 /**
@@ -37,6 +40,7 @@ readonly class Holiday
         private int $year,
         private string $country = Country::DE,
         private string $state = CountryDe::STATE_ALL,
+        private string $language = Language::DE,
         private int $preGenerationYears = Configuration::DEFAULT_PRE_GENERATION_YEARS,
     )
     {
@@ -286,8 +290,14 @@ readonly class Holiday
             default => throw new LogicException(sprintf('The given country "%s" is not supported.', $this->country)),
         };
 
-        foreach ($holidaysCountry as $name => $holidayData) {
+        foreach ($holidaysCountry as $holidayData) {
             $states = $holidayData['states'];
+
+            $name = match ($this->language) {
+                Language::DE => TranslationDe::HOLIDAYS[$holidayData['name']],
+                Language::EN => TranslationEn::HOLIDAYS[$holidayData['name']],
+                default => throw new LogicException(sprintf('The given language "%s" is not supported.', $this->language)),
+            };
 
             if (
                 !in_array($this->state, $states) &&
@@ -364,6 +374,7 @@ readonly class Holiday
             'country' => $this->country,
             'state' => $this->state,
             'year' => $this->year,
+            'language' => $this->language,
             'holidays' => $holidays,
         ];
     }
