@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Releases
 
+### [0.1.4] - 2024-11-20
+
+* Add phpcs fixer; Fixes to phpcs
+* Add versions to test output
+
 ### [0.1.3] - 2024-11-20
 
 * Update composer libraries
