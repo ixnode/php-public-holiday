@@ -18,7 +18,6 @@ use Ahc\Cli\Output\Color;
 use Ahc\Cli\Output\Writer;
 use Exception;
 use Ixnode\PhpPublicHoliday\Holiday;
-use Ixnode\PhpPublicHoliday\Tools\ArrayToCsv;
 use LogicException;
 
 /**

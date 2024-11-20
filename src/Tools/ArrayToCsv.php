@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Ixnode\PhpPublicHoliday\Tools;
 
+use Ixnode\PhpPublicHoliday\Tests\Unit\Tools\ArrayToCsvTest;
 use LogicException;
 
 /**
@@ -21,6 +22,7 @@ use LogicException;
  * @author Björn Hempel <bjoern@hempel.li>
  * @version 0.1.0 (2024-11-20)
  * @since 0.1.0 (2024-11-20) First version.
+ * @link ArrayToCsvTest
  */
 readonly class ArrayToCsv
 {

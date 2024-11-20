@@ -4,7 +4,7 @@
 # This script prints the header for Rector - Instant Upgrades and Automated Refactoring
 #
 # @author    Björn Hempel <bjoern@hempel.li>
-# @version   0.1.0 (2022-12-18)
+# @version   0.1.0 (2024-11-20)
 # ------------
 
 HEADER="Rector - Instant Upgrades and Automated Refactoring"
@@ -13,8 +13,12 @@ DESCRIPTION="$2"
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
+if command -v jq &> /dev/null; then
+    VERSION=$(composer show rector/rector --format=json | jq -r '.versions[0]')
+    HEADER="$HEADER $VERSION"
+fi
+
 eval "$SCRIPT_DIR/global \"$HEADER\" \"$COMMAND\" \"$DESCRIPTION\""
 RETURN_CODE=$?
 
 exit $RETURN_CODE
-
