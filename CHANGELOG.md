@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Releases
 
+### [0.1.6] - 2024-11-20
+
+* Add ixnode/php-naming-conventions library for states, countries and locales
+* Translate states, countries and locales
+
 ### [0.1.5] - 2024-11-20
 
 * Add language selector and options
