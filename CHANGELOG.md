@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Releases
 
+### [0.1.7] - 2024-11-20
+
+* Add ixnode/php-timezone version 0.1.23
+* Add AT public holidays
+
 ### [0.1.6] - 2024-11-20
 
 * Add ixnode/php-naming-conventions library for states, countries and locales
