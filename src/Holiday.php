@@ -20,6 +20,7 @@ use Ixnode\PhpPublicHoliday\Configuration\Configuration;
 use Ixnode\PhpPublicHoliday\Configuration\Country;
 use Ixnode\PhpPublicHoliday\Configuration\Country\CountryDe;
 use Ixnode\PhpPublicHoliday\Tests\Unit\HolidayTest;
+use Ixnode\PhpPublicHoliday\Tools\ArrayToCsv;
 use LogicException;
 
 /**
@@ -335,5 +336,76 @@ readonly class Holiday
         $easter = new DateTimeImmutable(sprintf('@%s', easter_date($this->year)));
 
         return $easter->setTimezone(new DateTimeZone('Europe/Berlin'));
+    }
+
+    /**
+     * Returns the public holidays as array format.
+     *
+     * @return array{
+     *     country: string,
+     *     state: string,
+     *     year: int,
+     *     holidays: array<int, array{date: string, name: string}>
+     * }
+     * @throws Exception
+     */
+    public function getArray(): array
+    {
+        $holidays = [];
+
+        foreach ($this->getHolidays() as $holidayItem) {
+            $holidays[] = [
+                'date' => $holidayItem->getDate()->format('Y-m-d'),
+                'name' => $holidayItem->getName(),
+            ];
+        }
+
+        return [
+            'country' => $this->country,
+            'state' => $this->state,
+            'year' => $this->year,
+            'holidays' => $holidays,
+        ];
+    }
+
+    /**
+     * Returns the public holidays as csv format.
+     *
+     * @return string
+     * @throws Exception
+     */
+    public function getCsv(): string
+    {
+        $data = [
+            ['date', 'public holiday']
+        ];
+
+        foreach ($this->getHolidays() as $holiday) {
+            $data[] = [
+                $holiday->getDate()->format('Y-m-d'),
+                $holiday->getName(),
+            ];
+        }
+
+        return (new ArrayToCsv($data))->getCSV();
+    }
+
+    /**
+     * Returns the public holidays as json format.
+     *
+     * @return string
+     * @throws Exception
+     */
+    public function getJson(): string
+    {
+        $data = $this->getArray();
+
+        $json = json_encode($data, JSON_PRETTY_PRINT);
+
+        if (!is_string($json)) {
+            throw new LogicException('Unable to encode json');
+        }
+
+        return $json;
     }
 }

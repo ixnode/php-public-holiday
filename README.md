@@ -47,7 +47,7 @@ vendor/bin/php-public-holiday -V
 ```
 
 ```bash
-php-public-holiday 0.1.0 (2024-07-18 20:33:58) - Björn Hempel <bjoern@hempel.li>
+php-public-holiday 0.1.1 (2024-07-18 22:01:51) - Björn Hempel <bjoern@hempel.li>
 ```
 
 ## 3. Command line tool
@@ -55,13 +55,13 @@ php-public-holiday 0.1.0 (2024-07-18 20:33:58) - Björn Hempel <bjoern@hempel.li
 > Used to quickly check the public holidays.
 
 ```bash
-bin/console ph DE SN 2024
+bin/console ph DE SN --year=2024
 ```
 
 or within your composer project:
 
 ```bash
-vendor/bin/php-public-holiday ph DE SN 2024
+vendor/bin/php-public-holiday ph DE SN --year=2024
 ```
 
 ```bash
@@ -82,6 +82,48 @@ Year:    2024
 - 2024-12-25: Erster Weihnachtsfeiertag
 - 2024-12-26: Zweiter Weihnachtsfeiertag
 
+```
+
+### Output formats (`--format`)
+
+Available options:
+
+* `text` (default)
+* `json`
+* `csv`
+
+#### JSON
+
+```bash
+bin/console ph DE SN --year=2025 --format=json
+```
+
+```json
+{
+    "country": "DE",
+    "state": "SN",
+    "year": 2025,
+    "holidays": [
+        {
+            "date": "2025-01-01",
+            "name": "Neujahr"
+        },
+        ...
+    ]
+}
+```
+
+#### CSV
+
+```bash
+bin/console ph DE SN --year=2025 --format=csv
+```
+
+```csv
+date;"public holiday"
+2025-01-01;Neujahr
+2025-04-18;Karfreitag
+...
 ```
 
 ## 4. Library development
