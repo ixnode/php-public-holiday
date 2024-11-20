@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Releases
 
+### [0.1.5] - 2024-11-20
+
+* Add language selector and options
+* Translate public holidays into english
+
 ### [0.1.4] - 2024-11-20
 
 * Add phpcs fixer; Fixes to phpcs
