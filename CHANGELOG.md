@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Releases
 
+### [0.1.2] - 2024-11-20
+
+* Add output formats: csv, json
+* Add ArrayToCsv converter
+
 ### [0.1.1] - 2024-07-18
 
 * Change title of README.md

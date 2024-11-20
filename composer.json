@@ -1,5 +1,5 @@
 {
-  "version": "0.1.1",
+  "version": "0.1.2",
   "name": "ixnode/php-public-holiday",
   "description": "This PHP package automatically generates holidays for a given year, considering both federal states and the country. It provides an easy-to-use interface to retrieve public holidays based on specific regions, ensuring accurate and up-to-date holiday information for all supported areas.",
   "type": "library",
