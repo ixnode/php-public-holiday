@@ -25,6 +25,7 @@ use Ixnode\PhpTimezone\Constants\CountryEurope;
 readonly class Country
 {
     final public const COUNTRIES_SUPPORTED = [
+        CountryEurope::COUNTRY_CODE_AT,
         CountryEurope::COUNTRY_CODE_DE,
     ];
 }

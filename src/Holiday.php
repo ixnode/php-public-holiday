@@ -17,9 +17,10 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Exception;
 use Ixnode\PhpPublicHoliday\Configuration\Configuration;
-use Ixnode\PhpPublicHoliday\Configuration\Country\CountryDe;
+use Ixnode\PhpPublicHoliday\Configuration\Holiday\HolidayConfigurationAt;
+use Ixnode\PhpPublicHoliday\Configuration\Holiday\HolidayConfigurationDe;
 use Ixnode\PhpPublicHoliday\Configuration\Locale;
-use Ixnode\PhpPublicHoliday\Tests\Unit\HolidayTest;
+use Ixnode\PhpPublicHoliday\Tests\Unit\HolidayDeTest;
 use Ixnode\PhpPublicHoliday\Tools\ArrayToCsv;
 use Ixnode\PhpPublicHoliday\Translation\TranslationDe;
 use Ixnode\PhpPublicHoliday\Translation\TranslationEn;
@@ -27,7 +28,7 @@ use Ixnode\PhpTimezone\Constants\CountryAll;
 use Ixnode\PhpTimezone\Constants\CountryEurope;
 use Ixnode\PhpTimezone\Constants\Language;
 use Ixnode\PhpTimezone\Constants\Locale as PhpTimezoneLocale;
-use Ixnode\PhpTimezone\Constants\State\Europe\StateGermany;
+use Ixnode\PhpTimezone\Constants\State\Europe\StateDe;
 use Ixnode\PhpTimezone\Constants\State\StateAll;
 use LogicException;
 
@@ -37,7 +38,7 @@ use LogicException;
  * @author Björn Hempel <bjoern@hempel.li>
  * @version 0.1.0 (2024-07-18)
  * @since 0.1.0 (2024-07-18) First version.
- * @link HolidayTest
+ * @link HolidayDeTest
  * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
@@ -46,7 +47,7 @@ readonly class Holiday
     public function __construct(
         private int $year,
         private string $countryCode = CountryEurope::COUNTRY_CODE_DE,
-        private string $stateCode = StateGermany::STATE_CODE_ALL,
+        private string $stateCode = StateDe::STATE_CODE_ALL,
         private string $localeCode = PhpTimezoneLocale::DE,
         private int $preGenerationYears = Configuration::DEFAULT_PRE_GENERATION_YEARS,
     )
@@ -396,7 +397,8 @@ readonly class Holiday
     ): void
     {
         $holidaysCountry = match ($this->countryCode) {
-            CountryEurope::COUNTRY_CODE_DE => CountryDe::HOLIDAYS,
+            CountryEurope::COUNTRY_CODE_DE => HolidayConfigurationDe::HOLIDAYS,
+            CountryEurope::COUNTRY_CODE_AT => HolidayConfigurationAt::HOLIDAYS,
             default => throw new LogicException(sprintf('The given country "%s" is not supported.', $this->countryCode)),
         };
 
@@ -411,7 +413,7 @@ readonly class Holiday
 
             if (
                 !in_array($this->stateCode, $states) &&
-                !in_array(StateGermany::STATE_CODE_ALL, $states)
+                !in_array(StateDe::STATE_CODE_ALL, $states)
             ) {
                 continue;
             }

@@ -89,7 +89,7 @@ Locale:  de (Deutsch)
 
 ```
 
-### Output formats (`--locale`)
+### Output locales (`--locale`)
 
 Available options:
 

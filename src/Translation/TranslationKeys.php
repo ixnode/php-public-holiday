@@ -30,6 +30,7 @@ readonly class TranslationKeys
     final public const BOXING_DAY = 'BOXING_DAY';
     final public const BUSS_UND_BETTAG = 'BUSS_UND_BETTAG';
     final public const CHILDREN_S_DAY = 'CHILDREN_S_DAY';
+    final public const CHRISTMAS = 'CHRISTMAS';
     final public const CHRISTMAS_DAY = 'CHRISTMAS_DAY';
     final public const EASTER_MONDAY = 'EASTER_MONDAY';
     final public const EASTER_SUNDAY = 'EASTER_SUNDAY';
@@ -37,11 +38,15 @@ readonly class TranslationKeys
     final public const FEAST_OF_THE_ASCENSION = 'FEAST_OF_THE_ASCENSION';
     final public const GERMAN_UNITY_DAY = 'GERMAN_UNITY_DAY';
     final public const GOOD_FRIDAY = 'GOOD_FRIDAY';
+    final public const IMMACULATE_CONCEPTION = 'IMMACULATE_CONCEPTION';
     final public const INTERNATIONAL_WOMEN_S_DAY = 'INTERNATIONAL_WOMEN_S_DAY';
     final public const LABOUR_DAY = 'LABOUR_DAY';
     final public const MAUNDY_THURSDAY = 'MAUNDY_THURSDAY';
+    final public const NATIONAL_HOLIDAY = 'NATIONAL_HOLIDAY';
+    final public const STATE_HOLIDAY = 'STATE_HOLIDAY';
     final public const NEW_YEAR = 'NEW_YEAR';
     final public const REFORMATION_DAY = 'REFORMATION_DAY';
+    final public const STEFANITAG = 'STEFANITAG';
     final public const WHIT_MONDAY = 'WHIT_MONDAY';
     final public const WHIT_SUNDAY = 'WHIT_SUNDAY';
 }

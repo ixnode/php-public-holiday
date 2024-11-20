@@ -62,7 +62,7 @@ class PublicHolidayCommand extends Command
             ->option('--year', 'The year to be displayed.', 'intval', (int) date('Y'))
             ->option(
                 '--locale',
-                sprintf('The locale to be displayed. Supported options: %s', implode(', ', \Ixnode\PhpPublicHoliday\Configuration\Locale::LOCALES_SUPPORTED)),
+                sprintf('The locale to be displayed. Supported options: %s', implode(', ', Locale::LOCALES_SUPPORTED)),
                 $this->filterLocale(...),
                 PhpTimezoneLocale::DE
             )
