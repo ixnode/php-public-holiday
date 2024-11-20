@@ -17,13 +17,18 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Exception;
 use Ixnode\PhpPublicHoliday\Configuration\Configuration;
-use Ixnode\PhpPublicHoliday\Configuration\Country;
 use Ixnode\PhpPublicHoliday\Configuration\Country\CountryDe;
-use Ixnode\PhpPublicHoliday\Configuration\Language;
+use Ixnode\PhpPublicHoliday\Configuration\Locale;
 use Ixnode\PhpPublicHoliday\Tests\Unit\HolidayTest;
 use Ixnode\PhpPublicHoliday\Tools\ArrayToCsv;
 use Ixnode\PhpPublicHoliday\Translation\TranslationDe;
 use Ixnode\PhpPublicHoliday\Translation\TranslationEn;
+use Ixnode\PhpTimezone\Constants\CountryAll;
+use Ixnode\PhpTimezone\Constants\CountryEurope;
+use Ixnode\PhpTimezone\Constants\Language;
+use Ixnode\PhpTimezone\Constants\Locale as PhpTimezoneLocale;
+use Ixnode\PhpTimezone\Constants\State\Europe\StateGermany;
+use Ixnode\PhpTimezone\Constants\State\StateAll;
 use LogicException;
 
 /**
@@ -33,14 +38,16 @@ use LogicException;
  * @version 0.1.0 (2024-07-18)
  * @since 0.1.0 (2024-07-18) First version.
  * @link HolidayTest
+ * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 readonly class Holiday
 {
     public function __construct(
         private int $year,
-        private string $country = Country::DE,
-        private string $state = CountryDe::STATE_ALL,
-        private string $language = Language::DE,
+        private string $countryCode = CountryEurope::COUNTRY_CODE_DE,
+        private string $stateCode = StateGermany::STATE_CODE_ALL,
+        private string $localeCode = PhpTimezoneLocale::DE,
         private int $preGenerationYears = Configuration::DEFAULT_PRE_GENERATION_YEARS,
     )
     {
@@ -61,6 +68,109 @@ readonly class Holiday
     public function getYear(): int
     {
         return $this->year;
+    }
+
+    /**
+     * Returns the country code of this object.
+     */
+    public function getCountryCode(): string
+    {
+        return $this->countryCode;
+    }
+
+    /**
+     * Returns the translated country of this object.
+     */
+    public function getCountry(): string
+    {
+        if (!array_key_exists($this->countryCode, CountryAll::COUNTRY_NAMES)) {
+            throw new LogicException(sprintf('Country code "%s" does not exist.', $this->countryCode));
+        }
+
+        $countryData = CountryAll::COUNTRY_NAMES[$this->countryCode];
+
+        $locale = $this->getLocaleCodeFull();
+
+        if (!array_key_exists($locale, $countryData)) {
+            throw new LogicException(sprintf('Locale code "%s" does not exist.', $locale));
+        }
+
+        return $countryData[$locale];
+    }
+
+    /**
+     * Returns the state code of this object
+     */
+    public function getStateCode(): string
+    {
+        return $this->stateCode;
+    }
+
+    /**
+     * Returns the translated state of this object.
+     */
+    public function getState(): string
+    {
+        if (!array_key_exists($this->countryCode, StateAll::STATE_NAMES)) {
+            throw new LogicException(sprintf('Country code "%s" does not exist.', $this->countryCode));
+        }
+
+        $stateNames = StateAll::STATE_NAMES[$this->countryCode];
+
+        if (!array_key_exists($this->stateCode, $stateNames)) {
+            throw new LogicException(sprintf('State code "%s" does not exist.', $this->stateCode));
+        }
+
+        $stateData = $stateNames[$this->stateCode];
+
+        $locale = $this->getLocaleCodeFull();
+
+        if (!array_key_exists($locale, $stateData)) {
+            throw new LogicException(sprintf('Locale code "%s" does not exist.', $locale));
+        }
+
+        return $stateData[$locale];
+    }
+
+    /**
+     * Returns the locale code of this object.
+     */
+    public function getLocaleCode(): string
+    {
+        return $this->localeCode;
+    }
+
+    /**
+     * Returns the locale code of this object.
+     */
+    public function getLocaleCodeFull(): string
+    {
+        return match ($this->localeCode) {
+            PhpTimezoneLocale::DE => PhpTimezoneLocale::DE_DE,
+            PhpTimezoneLocale::EN => PhpTimezoneLocale::EN_GB,
+            default => $this->localeCode,
+        };
+    }
+
+    /**
+     * Returns the translated locale code of this object.
+     */
+    public function getLocale(): string
+    {
+        if (!in_array($this->localeCode, Locale::LOCALES_SUPPORTED, true)) {
+            throw new LogicException(sprintf('Locale code "%s" is not supported.', $this->localeCode));
+        }
+
+        $language = match ($this->localeCode) {
+            PhpTimezoneLocale::DE => Language::DE,
+            PhpTimezoneLocale::EN => Language::EN,
+        };
+
+        if (!array_key_exists($this->localeCode, $language)) {
+            throw new LogicException(sprintf('Locale code "%s" does not exist.', $this->localeCode));
+        }
+
+        return $language[$this->localeCode];
     }
 
     /**
@@ -285,23 +395,23 @@ readonly class Holiday
         int $year
     ): void
     {
-        $holidaysCountry = match ($this->country) {
-            Country::DE => CountryDe::HOLIDAYS,
-            default => throw new LogicException(sprintf('The given country "%s" is not supported.', $this->country)),
+        $holidaysCountry = match ($this->countryCode) {
+            CountryEurope::COUNTRY_CODE_DE => CountryDe::HOLIDAYS,
+            default => throw new LogicException(sprintf('The given country "%s" is not supported.', $this->countryCode)),
         };
 
         foreach ($holidaysCountry as $holidayData) {
             $states = $holidayData['states'];
 
-            $name = match ($this->language) {
-                Language::DE => TranslationDe::HOLIDAYS[$holidayData['name']],
-                Language::EN => TranslationEn::HOLIDAYS[$holidayData['name']],
-                default => throw new LogicException(sprintf('The given language "%s" is not supported.', $this->language)),
+            $name = match ($this->localeCode) {
+                PhpTimezoneLocale::DE => TranslationDe::HOLIDAYS[$holidayData['name']],
+                PhpTimezoneLocale::EN => TranslationEn::HOLIDAYS[$holidayData['name']],
+                default => throw new LogicException(sprintf('The given language "%s" is not supported.', $this->localeCode)),
             };
 
             if (
-                !in_array($this->state, $states) &&
-                !in_array(CountryDe::STATE_ALL, $states)
+                !in_array($this->stateCode, $states) &&
+                !in_array(StateGermany::STATE_CODE_ALL, $states)
             ) {
                 continue;
             }
@@ -371,10 +481,10 @@ readonly class Holiday
         }
 
         return [
-            'country' => $this->country,
-            'state' => $this->state,
+            'country' => $this->countryCode,
+            'state' => $this->stateCode,
             'year' => $this->year,
-            'language' => $this->language,
+            'locale' => $this->localeCode,
             'holidays' => $holidays,
         ];
     }

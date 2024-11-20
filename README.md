@@ -25,10 +25,11 @@ use Ixnode\PhpPublicHoliday\Holiday;
 
 ```php
 $year = 2024;
-$country = \Ixnode\PhpPublicHoliday\Configuration\Country::DE;
-$state = \Ixnode\PhpPublicHoliday\Configuration\Country\CountryDe::STATE_SN;
+$country = 'DE';
+$state = 'SN';
+$locale = 'de';
 
-$holiday = new Holiday($year, $country, $state);
+$holiday = new Holiday(year: $year, countryCode: $country, stateCode: $state, localeCode: $locale);
 
 print_r($holiday->getHolidays());
 // (array) [Ixnode\PhpPublicHoliday\HolidayItem Object, ...]
@@ -47,7 +48,7 @@ vendor/bin/php-public-holiday -V
 ```
 
 ```bash
-php-public-holiday 0.1.1 (2024-07-18 22:01:51) - Björn Hempel <bjoern@hempel.li>
+php-public-holiday 0.1.5 (2024-11-20 16:40:01) - Björn Hempel <bjoern@hempel.li>
 ```
 
 ## 3. Command line tool
@@ -66,10 +67,10 @@ vendor/bin/php-public-holiday ph DE SN --year=2024
 
 ```bash
 
-Country:  DE
-State:    SN
-Year:     2025
-Language: DE
+Year:    2024
+Country: DE (Deutschland)
+State:   SN (Sachsen)
+Locale:  de (Deutsch)
 
 - 2024-01-01: Neujahr
 - 2024-03-29: Karfreitag
@@ -79,13 +80,16 @@ Language: DE
 - 2024-05-09: Christi Himmelfahrt
 - 2024-05-19: Pfingstsonntag
 - 2024-05-20: Pfingstmontag
+- 2024-05-30: Fronleichnam
 - 2024-10-03: Tag der deutschen Einheit
+- 2024-10-31: Reformationstag
+- 2024-11-20: Buß- und Bettag
 - 2024-12-25: Erster Weihnachtsfeiertag
 - 2024-12-26: Zweiter Weihnachtsfeiertag
 
 ```
 
-### Output formats (`--language`)
+### Output formats (`--locale`)
 
 Available options:
 
@@ -93,15 +97,15 @@ Available options:
 * `en`
 
 ```bash
-bin/console ph DE SN --year=2025 --language=en --format=text
+bin/console ph DE SN --year=2025 --locale=en --format=text
 ```
 
 ```bash
 
-Country:  DE
-State:    SN
-Year:     2025
-Language: EN
+Year:    2025
+Country: DE (Germany)
+State:   SN (Saxony)
+Locale:  en (English)
 
 - 2025-01-01: New Year
 - 2025-04-18: Good Friday
@@ -111,7 +115,10 @@ Language: EN
 - 2025-05-29: Feast of the Ascension
 - 2025-06-08: Whit Sunday
 - 2025-06-09: Whit Monday
+- 2025-06-19: Feast of Corpus Christi
 - 2025-10-03: German Unity Day
+- 2025-10-31: Reformation Day
+- 2025-11-19: Buß- und Bettag
 - 2025-12-25: Christmas Day
 - 2025-12-26: Boxing Day
 
@@ -136,7 +143,7 @@ bin/console ph DE SN --year=2025 --format=json
     "country": "DE",
     "state": "SN",
     "year": 2025,
-    "language": "DE",
+    "locale": "de",
     "holidays": [
         {
             "date": "2025-01-01",

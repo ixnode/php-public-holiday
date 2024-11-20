@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1ca170688adb1f3741cf4bab00e05284",
+    "content-hash": "34083e29f5b52b42c0cde72adadb73f4",
     "packages": [
         {
             "name": "adhocore/cli",
@@ -75,6 +75,122 @@
                 }
             ],
             "time": "2024-11-20T07:38:11+00:00"
+        },
+        {
+            "name": "ixnode/php-naming-conventions",
+            "version": "0.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ixnode/php-naming-conventions.git",
+                "reference": "1b7d32cd1cb29d8751ba7cd4b6128625cd3cee6c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ixnode/php-naming-conventions/zipball/1b7d32cd1cb29d8751ba7cd4b6128625cd3cee6c",
+                "reference": "1b7d32cd1cb29d8751ba7cd4b6128625cd3cee6c",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.13",
+                "ixnode/bash-version-manager": "^0.1.8",
+                "phpmd/phpmd": "^2.13",
+                "phpstan/phpstan": "^1.9",
+                "phpunit/phpunit": "^9.5",
+                "povils/phpmnd": "^3.0",
+                "rector/rector": "^0.15.1"
+            },
+            "bin": [
+                "bin/php-naming-conventions"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ixnode\\PhpNamingConventions\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Björn Hempel",
+                    "email": "bjoern@hempel.li",
+                    "homepage": "https://www.hempel.li/"
+                }
+            ],
+            "description": "PHP Naming Conventions",
+            "keywords": [
+                "conventions",
+                "naming"
+            ],
+            "support": {
+                "issues": "https://github.com/ixnode/php-naming-conventions/issues",
+                "source": "https://github.com/ixnode/php-naming-conventions/tree/0.1.3"
+            },
+            "time": "2024-07-18T20:21:32+00:00"
+        },
+        {
+            "name": "ixnode/php-timezone",
+            "version": "0.1.22",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ixnode/php-timezone.git",
+                "reference": "3dfaa47e159edeba44d9eb75f9eeae3baf4a8ab1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ixnode/php-timezone/zipball/3dfaa47e159edeba44d9eb75f9eeae3baf4a8ab1",
+                "reference": "3dfaa47e159edeba44d9eb75f9eeae3baf4a8ab1",
+                "shasum": ""
+            },
+            "require": {
+                "ixnode/php-naming-conventions": "^0.1.1",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.13",
+                "ixnode/bash-version-manager": "^0.1.3",
+                "phpmd/phpmd": "^2.13",
+                "phpstan/phpstan": "^1.9",
+                "phpunit/phpunit": "^9.5",
+                "povils/phpmnd": "^3.0",
+                "rector/rector": "^0.15.1"
+            },
+            "bin": [
+                "bin/php-timezone"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Ixnode\\PhpTimezone\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Björn Hempel",
+                    "email": "bjoern@hempel.li",
+                    "homepage": "https://www.hempel.li/"
+                }
+            ],
+            "description": "PHP Timezone - This library converts different timezone strings.",
+            "keywords": [
+                "conversion",
+                "php",
+                "timezone"
+            ],
+            "support": {
+                "issues": "https://github.com/ixnode/php-timezone/issues",
+                "source": "https://github.com/ixnode/php-timezone/tree/0.1.22"
+            },
+            "time": "2024-11-20T19:01:28+00:00"
         }
     ],
     "packages-dev": [
@@ -890,63 +1006,6 @@
                 "source": "https://github.com/ixnode/php-exception/tree/0.1.21"
             },
             "time": "2023-07-03T21:13:30+00:00"
-        },
-        {
-            "name": "ixnode/php-naming-conventions",
-            "version": "0.1.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ixnode/php-naming-conventions.git",
-                "reference": "1b7d32cd1cb29d8751ba7cd4b6128625cd3cee6c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ixnode/php-naming-conventions/zipball/1b7d32cd1cb29d8751ba7cd4b6128625cd3cee6c",
-                "reference": "1b7d32cd1cb29d8751ba7cd4b6128625cd3cee6c",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^8.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.13",
-                "ixnode/bash-version-manager": "^0.1.8",
-                "phpmd/phpmd": "^2.13",
-                "phpstan/phpstan": "^1.9",
-                "phpunit/phpunit": "^9.5",
-                "povils/phpmnd": "^3.0",
-                "rector/rector": "^0.15.1"
-            },
-            "bin": [
-                "bin/php-naming-conventions"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Ixnode\\PhpNamingConventions\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Björn Hempel",
-                    "email": "bjoern@hempel.li",
-                    "homepage": "https://www.hempel.li/"
-                }
-            ],
-            "description": "PHP Naming Conventions",
-            "keywords": [
-                "conventions",
-                "naming"
-            ],
-            "support": {
-                "issues": "https://github.com/ixnode/php-naming-conventions/issues",
-                "source": "https://github.com/ixnode/php-naming-conventions/tree/0.1.3"
-            },
-            "time": "2024-07-18T20:21:32+00:00"
         },
         {
             "name": "ixnode/php-size-byte",

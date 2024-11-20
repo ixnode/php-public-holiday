@@ -13,14 +13,18 @@ declare(strict_types=1);
 
 namespace Ixnode\PhpPublicHoliday\Configuration;
 
+use Ixnode\PhpTimezone\Constants\CountryEurope;
+
 /**
- * Class Country
+ * Class Format
  *
  * @author Björn Hempel <bjoern@hempel.li>
- * @version 0.1.0 (2024-07-18)
- * @since 0.1.0 (2024-07-18) First version.
+ * @version 0.1.0 (2024-11-20)
+ * @since 0.1.0 (2024-11-20) First version.
  */
 readonly class Country
 {
-    final public const DE = 'DE';
+    final public const COUNTRIES_SUPPORTED = [
+        CountryEurope::COUNTRY_CODE_DE,
+    ];
 }

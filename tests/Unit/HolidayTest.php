@@ -15,9 +15,9 @@ namespace Ixnode\PhpPublicHoliday\Tests\Unit;
 
 use DateTimeImmutable;
 use Exception;
-use Ixnode\PhpPublicHoliday\Configuration\Country;
-use Ixnode\PhpPublicHoliday\Configuration\Country\CountryDe;
 use Ixnode\PhpPublicHoliday\Holiday;
+use Ixnode\PhpTimezone\Constants\CountryEurope;
+use Ixnode\PhpTimezone\Constants\State\Europe\StateGermany;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -71,7 +71,7 @@ final class HolidayTest extends TestCase
 
         return [
             /* Germany-wide */
-            [++$number, 2023, Country::DE, CountryDe::STATE_ALL, [
+            [++$number, 2023, CountryEurope::COUNTRY_CODE_DE, StateGermany::STATE_CODE_ALL, [
                 '2023-01-01', /* Neujahr */
                 '2023-04-07', /* Karfreitag */
                 '2023-04-09', /* Ostersonntag */
@@ -84,7 +84,7 @@ final class HolidayTest extends TestCase
                 '2023-12-25', /* Erster Weihnachtsfeiertag */
                 '2023-12-26', /* Zweiter Weihnachtsfeiertag */
             ]],
-            [++$number, 2024, Country::DE, CountryDe::STATE_ALL, [
+            [++$number, 2024, CountryEurope::COUNTRY_CODE_DE, StateGermany::STATE_CODE_ALL, [
                 '2024-01-01', /* Neujahr */
                 '2024-03-29', /* Karfreitag */
                 '2024-03-31', /* Ostersonntag */
@@ -97,7 +97,7 @@ final class HolidayTest extends TestCase
                 '2024-12-25', /* Erster Weihnachtsfeiertag */
                 '2024-12-26', /* Zweiter Weihnachtsfeiertag */
             ]],
-            [++$number, 2025, Country::DE, CountryDe::STATE_ALL, [
+            [++$number, 2025, CountryEurope::COUNTRY_CODE_DE, StateGermany::STATE_CODE_ALL, [
                 '2025-01-01', /* Neujahr */
                 '2025-04-18', /* Karfreitag */
                 '2025-04-20', /* Ostersonntag */
@@ -112,7 +112,7 @@ final class HolidayTest extends TestCase
             ]],
 
             /* Sachsen */
-            [++$number, 2024, Country::DE, CountryDe::STATE_SN, [
+            [++$number, 2024, CountryEurope::COUNTRY_CODE_DE, StateGermany::STATE_CODE_SN, [
                 '2024-01-01', /* Neujahr */
                 '2024-03-29', /* Karfreitag */
                 '2024-03-31', /* Ostersonntag */
@@ -130,7 +130,7 @@ final class HolidayTest extends TestCase
             ]],
 
             /* Baden-Württemberg */
-            [++$number, 2024, Country::DE, CountryDe::STATE_BW, [
+            [++$number, 2024, CountryEurope::COUNTRY_CODE_DE, StateGermany::STATE_CODE_BW, [
                 '2024-01-01', /* Neujahr */
                 '2024-01-06', /* Heilige drei Könige */
                 '2024-03-28', /* Gründonnerstag */
@@ -149,7 +149,7 @@ final class HolidayTest extends TestCase
             ]],
 
             /* Hamburg */
-            [++$number, 2024, Country::DE, CountryDe::STATE_HH, [
+            [++$number, 2024, CountryEurope::COUNTRY_CODE_DE, StateGermany::STATE_CODE_HH, [
                 '2024-01-01', /* Neujahr */
                 '2024-03-29', /* Karfreitag */
                 '2024-03-31', /* Ostersonntag */
@@ -163,7 +163,7 @@ final class HolidayTest extends TestCase
                 '2024-12-25', /* Erster Weihnachtsfeiertag */
                 '2024-12-26', /* Zweiter Weihnachtsfeiertag */
             ]],
-            [++$number, 2025, Country::DE, CountryDe::STATE_HH, [
+            [++$number, 2025, CountryEurope::COUNTRY_CODE_DE, StateGermany::STATE_CODE_HH, [
                 '2025-01-01', /* Neujahr */
                 '2025-04-18', /* Karfreitag */
                 '2025-04-20', /* Ostersonntag */
@@ -220,7 +220,7 @@ final class HolidayTest extends TestCase
 
         return [
             /* Germany-wide */
-            [++$number, 2024, Country::DE, CountryDe::STATE_ALL, [
+            [++$number, 2024, CountryEurope::COUNTRY_CODE_DE, StateGermany::STATE_CODE_ALL, [
                 '2024-01-01',
                 '2024-01-06',
                 '2024-01-07',
@@ -381,8 +381,8 @@ final class HolidayTest extends TestCase
 
         return [
             /* Germany-wide */
-            [++$number, 2024, Country::DE, CountryDe::STATE_HH, '2024-01-01', 14, '2024-01-22'],
-            [++$number, 2024, Country::DE, CountryDe::STATE_HH, '2024-02-15', 14, '2024-03-06'],
+            [++$number, 2024, CountryEurope::COUNTRY_CODE_DE, StateGermany::STATE_CODE_HH, '2024-01-01', 14, '2024-01-22'],
+            [++$number, 2024, CountryEurope::COUNTRY_CODE_DE, StateGermany::STATE_CODE_HH, '2024-02-15', 14, '2024-03-06'],
         ];
     }
 }

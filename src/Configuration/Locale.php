@@ -13,20 +13,19 @@ declare(strict_types=1);
 
 namespace Ixnode\PhpPublicHoliday\Configuration;
 
+use Ixnode\PhpTimezone\Constants\Locale as PhpTimezoneLocale;
+
 /**
- * Class Language
+ * Class Format
  *
  * @author Björn Hempel <bjoern@hempel.li>
  * @version 0.1.0 (2024-11-20)
  * @since 0.1.0 (2024-11-20) First version.
  */
-readonly class Language
+readonly class Locale
 {
-    final public const DE = 'DE';
-    final public const EN = 'EN';
-
-    final public const LANGUAGES_SUPPORTED = [
-        self::DE,
-        self::EN,
+    final public const LOCALES_SUPPORTED = [
+        PhpTimezoneLocale::DE,
+        PhpTimezoneLocale::EN,
     ];
 }
