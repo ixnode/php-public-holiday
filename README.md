@@ -45,7 +45,21 @@ print_r($holiday->getHolidays());
 | CH   | Switzerland | planned         |
 | DE   | Germany     | fully supported |
 
-## 3. Installation
+## 3. Supported languages
+
+| Code | Language | State           |
+|------|----------|-----------------|
+| cz   | Czech    | planned         |
+| de   | German   | fully supported |
+| en   | English  | fully supported |
+| es   | Spanish  | planned         |
+| fr   | French   | planned         |
+| hr   | Croatian | planned         |
+| it   | Italian  | planned         |
+| pl   | Polish   | planned         |
+| se   | Swedish  | planned         |
+
+## 4. Installation
 
 ```bash
 composer require ixnode/php-public-holiday
@@ -59,7 +73,7 @@ vendor/bin/php-public-holiday -V
 php-public-holiday 0.1.5 (2024-11-20 16:40:01) - Björn Hempel <bjoern@hempel.li>
 ```
 
-## 4. Command line tool
+## 5. Command line tool
 
 > Used to quickly check the public holidays.
 
@@ -175,7 +189,7 @@ date;"public holiday"
 ...
 ```
 
-## 5. Library development
+## 6. Library development
 
 ```bash
 git clone git@github.com:ixnode/php-public-holiday.git && cd php-public-holiday
@@ -189,11 +203,11 @@ composer install
 composer test
 ```
 
-## 6. License
+## 7. License
 
 This library is licensed under the MIT License - see the [LICENSE](/LICENSE.md) file for details.
 
-## 7. Author
+## 8. Author
 
 * Björn Hempel <bjoern@hempel.li>
 * https://www.hempel.li/
