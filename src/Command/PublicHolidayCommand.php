@@ -21,7 +21,6 @@ use Ixnode\PhpPublicHoliday\Configuration\Country;
 use Ixnode\PhpPublicHoliday\Configuration\Format;
 use Ixnode\PhpPublicHoliday\Configuration\Locale;
 use Ixnode\PhpPublicHoliday\Configuration\State;
-use Ixnode\PhpPublicHoliday\Constant\Date;
 use Ixnode\PhpPublicHoliday\Holiday;
 use Ixnode\PhpTimezone\Constants\Locale as PhpTimezoneLocale;
 use LogicException;
@@ -208,10 +207,7 @@ class PublicHolidayCommand extends Command
             localeCode: $localeCode
         );
 
-        $dateFormat = match ($localeCode) {
-            PhpTimezoneLocale::DE => Date::DATE_FORMAT_DE_YMD,
-            default => Date::DATE_FORMAT_EN_YMD,
-        };
+        $dateFormat = $holiday->getDateFormat();
 
         print PHP_EOL;
         print sprintf('Year:    %d', $holiday->getYear()).PHP_EOL;

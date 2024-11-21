@@ -20,6 +20,7 @@ use Ixnode\PhpPublicHoliday\Configuration\Configuration;
 use Ixnode\PhpPublicHoliday\Configuration\Holiday\HolidayConfigurationAt;
 use Ixnode\PhpPublicHoliday\Configuration\Holiday\HolidayConfigurationDe;
 use Ixnode\PhpPublicHoliday\Configuration\Locale;
+use Ixnode\PhpPublicHoliday\Constant\Date;
 use Ixnode\PhpPublicHoliday\Tests\Unit\HolidayDeTest;
 use Ixnode\PhpPublicHoliday\Tools\ArrayToCsv;
 use Ixnode\PhpPublicHoliday\Translation\TranslationDe;
@@ -471,14 +472,17 @@ readonly class Holiday
      * }
      * @throws Exception
      */
-    public function getArray(): array
+    public function getArray(DateTimeImmutable|string $referenceDate = Date::TODAY): array
     {
         $holidays = [];
 
+        $dateFormat = $this->getDateFormat();
+
         foreach ($this->getHolidays() as $holidayItem) {
             $holidays[] = [
-                'date' => $holidayItem->getDate()->format('Y-m-d'),
+                'date' => $holidayItem->getDate()->format($dateFormat),
                 'name' => $holidayItem->getName(),
+                'difference' => $holidayItem->getDays(referenceDate: $referenceDate),
             ];
         }
 
@@ -494,19 +498,23 @@ readonly class Holiday
     /**
      * Returns the public holidays as csv format.
      *
+     * @param DateTimeImmutable|string $referenceDate
      * @return string
      * @throws Exception
      */
-    public function getCsv(): string
+    public function getCsv(DateTimeImmutable|string $referenceDate = Date::TODAY): string
     {
         $data = [
-            ['date', 'public holiday']
+            ['date', 'public holiday', 'difference']
         ];
+
+        $dateFormat = $this->getDateFormat();
 
         foreach ($this->getHolidays() as $holiday) {
             $data[] = [
-                $holiday->getDate()->format('Y-m-d'),
+                $holiday->getDate()->format($dateFormat),
                 $holiday->getName(),
+                $holiday->getDays($referenceDate),
             ];
         }
 
@@ -516,12 +524,11 @@ readonly class Holiday
     /**
      * Returns the public holidays as json format.
      *
-     * @return string
      * @throws Exception
      */
-    public function getJson(): string
+    public function getJson(DateTimeImmutable|string $referenceDate = Date::TODAY): string
     {
-        $data = $this->getArray();
+        $data = $this->getArray(referenceDate: $referenceDate);
 
         $json = json_encode($data, JSON_PRETTY_PRINT);
 
@@ -530,5 +537,16 @@ readonly class Holiday
         }
 
         return $json;
+    }
+
+    /**
+     * Returns the date format according to local code.
+     */
+    public function getDateFormat(): string
+    {
+        return match ($this->localeCode) {
+            PhpTimezoneLocale::DE => Date::DATE_FORMAT_DE_YMD,
+            default => Date::DATE_FORMAT_EN_YMD,
+        };
     }
 }

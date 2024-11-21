@@ -22,7 +22,11 @@ namespace Ixnode\PhpPublicHoliday\Constant;
  */
 readonly class Date
 {
+    final public const YESTERDAY = 'yesterday';
+
     final public const TODAY = 'today';
+
+    final public const TOMORROW = 'tomorrow';
 
     final public const DATE_FORMAT_DE_YMD = 'd.m.Y';
 
