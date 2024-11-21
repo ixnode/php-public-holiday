@@ -21,6 +21,7 @@ use Ixnode\PhpPublicHoliday\Configuration\Country;
 use Ixnode\PhpPublicHoliday\Configuration\Format;
 use Ixnode\PhpPublicHoliday\Configuration\Locale;
 use Ixnode\PhpPublicHoliday\Configuration\State;
+use Ixnode\PhpPublicHoliday\Constant\Date;
 use Ixnode\PhpPublicHoliday\Holiday;
 use Ixnode\PhpTimezone\Constants\Locale as PhpTimezoneLocale;
 use LogicException;
@@ -135,7 +136,7 @@ class PublicHolidayCommand extends Command
                 country: $country,
                 state: $state,
                 year: $year,
-                language: $locale,
+                localeCode: $locale,
             ),
             default => throw new LogicException(sprintf('Unknown or unsupported format: %s', $format)),
         };
@@ -194,18 +195,23 @@ class PublicHolidayCommand extends Command
      * @param string $country
      * @param string $state
      * @param int $year
-     * @param string $language
+     * @param string $localeCode
      * @return void
      * @throws Exception
      */
-    private function printText(string $country, string $state, int $year, string $language): void
+    private function printText(string $country, string $state, int $year, string $localeCode): void
     {
         $holiday = new Holiday(
             year: $year,
             countryCode: $country,
             stateCode: $state,
-            localeCode: $language
+            localeCode: $localeCode
         );
+
+        $dateFormat = match ($localeCode) {
+            PhpTimezoneLocale::DE => Date::DATE_FORMAT_DE_YMD,
+            default => Date::DATE_FORMAT_EN_YMD,
+        };
 
         print PHP_EOL;
         print sprintf('Year:    %d', $holiday->getYear()).PHP_EOL;
@@ -215,7 +221,7 @@ class PublicHolidayCommand extends Command
         print PHP_EOL;
 
         foreach ($holiday->getHolidays() as $holiday) {
-            print sprintf('- %s: %s', $holiday->getDate()->format('Y-m-d'), $holiday->getName()).PHP_EOL;
+            print sprintf('- %s: %s (%d days)', $holiday->getDate()->format($dateFormat), $holiday->getName(), $holiday->getDays()).PHP_EOL;
         }
 
         print PHP_EOL;

@@ -14,6 +14,8 @@ declare(strict_types=1);
 namespace Ixnode\PhpPublicHoliday;
 
 use DateTimeImmutable;
+use Exception;
+use Ixnode\PhpPublicHoliday\Constant\Date;
 
 /**
  * Class HolidayItem
@@ -28,11 +30,37 @@ readonly class HolidayItem
     {
     }
 
+    /**
+     * Returns the date of the holiday.
+     *
+     * @return DateTimeImmutable
+     */
     public function getDate(): DateTimeImmutable
     {
         return $this->date;
     }
 
+    /**
+     * Returns the day difference.
+     *
+     * @throws Exception
+     */
+    public function getDays(DateTimeImmutable|string $referenceDate = Date::TODAY): int
+    {
+        if (is_string($referenceDate)) {
+            $referenceDate = new DateTimeImmutable($referenceDate);
+        }
+
+        $diff = $this->date->diff($referenceDate);
+
+        return $diff->days * ($diff->invert ? 1 : -1);
+    }
+
+    /**
+     * Returns the name of the holiday.
+     *
+     * @return string
+     */
     public function getName(): string
     {
         return $this->name;

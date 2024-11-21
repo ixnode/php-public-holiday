@@ -79,7 +79,7 @@ readonly class HolidayConfigurationAt
             'states' => [StateAt::STATE_CODE_ALL],
         ],
         [
-            'name' => TranslationKeys::STATE_HOLIDAY, // Nationalfeiertag
+            'name' => TranslationKeys::NATIONAL_HOLIDAY, // Nationalfeiertag
             'date' => '10-26',
             'states' => [StateAt::STATE_CODE_ALL],
         ],
