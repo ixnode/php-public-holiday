@@ -42,22 +42,22 @@ print_r($holiday->getHolidays());
 | Code | Country     | States                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Support                            |
 |------|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------|
 | `AT` | Austria     | Burgenland (`B`), Carinthia (`K`), Lower Austria (`N`), Upper Austria (`O`), Salzburg (`S`), Styria (`ST`), Tyrol (`T`), Vorarlberg (`V`), Vienna (`W`)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | fully supported :white_check_mark: |
-| `CH` | Switzerland | Canton of Zurich (`ZH`), Canton of Bern (`BE`), Canton of Lucerne (`LU`), Canton of Uri (`UR`), Canton of Schwyz (`SZ`), Canton of Obwalden (`OW`), Canton of Nidwalden (`NW`), Canton of Glarus (`GL`), Canton of Zug (`ZG`), Canton of Fribourg (`FR`), Canton of Solothurn (`SO`), Canton of Basel-Stadt (`BS`), Canton of Basel-Landschaft (`BL`), Canton of Schaffhausen (`SH`), Canton of Appenzell Ausserrhoden (`AR`), Canton of Appenzell Innerrhoden (`AI`), Canton of St. Gallen (`SG`), Canton of the Grisons (`GR`), Canton of Aargau (`AG`), Canton of Thurgau (`TG`), Canton of Ticino (`TI`), Canton of Vaud (`VD`), Canton of Valais (`VS`), Canton of Neuchâtel (`NE`), Canton of Geneva (`GE`), Canton of Jura (`JU`) | planned :x:                        |
+| `CH` | Switzerland | Canton of Zurich (`ZH`), Canton of Bern (`BE`), Canton of Lucerne (`LU`), Canton of Uri (`UR`), Canton of Schwyz (`SZ`), Canton of Obwalden (`OW`), Canton of Nidwalden (`NW`), Canton of Glarus (`GL`), Canton of Zug (`ZG`), Canton of Fribourg (`FR`), Canton of Solothurn (`SO`), Canton of Basel-Stadt (`BS`), Canton of Basel-Landschaft (`BL`), Canton of Schaffhausen (`SH`), Canton of Appenzell Ausserrhoden (`AR`), Canton of Appenzell Innerrhoden (`AI`), Canton of St. Gallen (`SG`), Canton of the Grisons (`GR`), Canton of Aargau (`AG`), Canton of Thurgau (`TG`), Canton of Ticino (`TI`), Canton of Vaud (`VD`), Canton of Valais (`VS`), Canton of Neuchâtel (`NE`), Canton of Geneva (`GE`), Canton of Jura (`JU`) | planned :soon:                     |
 | `DE` | Germany     | Brandenburg (`BB`), Berlin (`BE`), Baden Württemberg (`BW`),  Bavaria (`BY`), Bremen (`HB`), Hesse (`HE`), Hamburg (`HH`), Mecklenburg-Western Pomerania (`MV`), Lower Saxony (`NI`), Nordrhein-Westfalen (`NW`), Rhineland-Palatinate (`RP`), Schleswig-Holstein (`SH`), Saarland (`SL`), Saxony (`SN`), Sachsen-Anhalt (`ST`), Thuringia (`TH`)                                                                                                                                                                                                                                                                                                                                                                                        | fully supported :white_check_mark: |
 
 ## 3. Supported languages
 
-| Code | Language | State           |
-|------|----------|-----------------|
-| cz   | Czech    | planned         |
-| de   | German   | fully supported |
-| en   | English  | fully supported |
-| es   | Spanish  | planned         |
-| fr   | French   | planned         |
-| hr   | Croatian | planned         |
-| it   | Italian  | planned         |
-| pl   | Polish   | planned         |
-| se   | Swedish  | planned         |
+| Code | Language | State                              |
+|------|----------|------------------------------------|
+| cz   | Czech    | planned :soon:                     |
+| de   | German   | fully supported :white_check_mark: |
+| en   | English  | fully supported :white_check_mark: |
+| es   | Spanish  | planned :soon:                     |
+| fr   | French   | planned :soon:                     |
+| hr   | Croatian | planned :soon:                     |
+| it   | Italian  | planned :soon:                     |
+| pl   | Polish   | planned :soon:                     |
+| se   | Swedish  | planned :soon:                     |
 
 ## 4. Installation
 
