@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Releases
 
+### [0.1.13] - 2024-11-21
+
+* Normalize translations
+
 ### [0.1.12] - 2024-11-21
 
 * Refactoring
