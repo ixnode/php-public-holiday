@@ -47,7 +47,7 @@ print_r($holiday->getHolidays());
 
 ## 3. Supported languages
 
-| Code | Language | State                              |
+| Code | Language | Support                            |
 |------|----------|------------------------------------|
 | `cz` | Czech    | planned :soon:                     |
 | `de` | German   | fully supported :white_check_mark: |
