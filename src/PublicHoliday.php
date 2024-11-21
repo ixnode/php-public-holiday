@@ -23,8 +23,7 @@ use Ixnode\PhpPublicHoliday\Constant\Date;
 use Ixnode\PhpPublicHoliday\Constant\Locale;
 use Ixnode\PhpPublicHoliday\Tests\Unit\PublicHolidayDeTest;
 use Ixnode\PhpPublicHoliday\Tools\ArrayToCsv;
-use Ixnode\PhpPublicHoliday\Translation\TranslationDe;
-use Ixnode\PhpPublicHoliday\Translation\TranslationEn;
+use Ixnode\PhpPublicHoliday\Translation\Holiday as TranslationHoliday;
 use Ixnode\PhpTimezone\Constants\CountryAll;
 use Ixnode\PhpTimezone\Constants\CountryEurope;
 use Ixnode\PhpTimezone\Constants\Language;
@@ -406,12 +405,7 @@ readonly class PublicHoliday
         foreach ($holidaysCountry as $holidayData) {
             $states = $holidayData['states'];
 
-            $name = match ($this->localeCode) {
-                PhpTimezoneLocale::DE => TranslationDe::HOLIDAYS[$holidayData['name']],
-                PhpTimezoneLocale::EN => TranslationEn::HOLIDAYS[$holidayData['name']],
-                default => throw new LogicException(sprintf('The given language "%s" is not supported.', $this->localeCode)),
-            };
-
+            /* Check holiday state code. */
             if (
                 !in_array($this->stateCode, $states) &&
                 !in_array(StateDe::STATE_CODE_ALL, $states)
@@ -419,15 +413,34 @@ readonly class PublicHoliday
                 continue;
             }
 
-            $dateString = $holidayData['date'];
+            /* Check holiday code. */
+            $holidayCode = $holidayData['name'];
+            if (!array_key_exists($holidayCode, TranslationHoliday::HOLIDAYS)) {
+                throw new LogicException(sprintf('The holiday "%s" does not exist.', $holidayCode));
+            }
 
+            /* Get all translations. */
+            $translations = TranslationHoliday::HOLIDAYS[$holidayCode];
+
+            /* Check locale. */
+            $localeCode = $this->getLocaleCodeFull();
+            if (!array_key_exists($localeCode, $translations)) {
+                throw new LogicException(sprintf('The locale code "%s" does not exist.', $localeCode));
+            }
+
+            /* Get translation. */
+            $translated = $translations[$localeCode];
+
+            /* Check and get date. */
+            $dateString = $holidayData['date'];
             $date = match (true) {
                 preg_match('~^\d{2}-\d{2}$~', $dateString) === 1 => new DateTimeImmutable(sprintf('%d-%s', $year, $dateString)),
                 $dateString === Holiday::BUSS_UND_BETTAG => $this->getBussUndBettag(),
                 default => $easterDate->modify($dateString),
             };
 
-            $holidays[] = new PublicHolidayItem($date, $name);
+            /* Build public holiday. */
+            $holidays[] = new PublicHolidayItem($date, $translated);
         }
     }
 
