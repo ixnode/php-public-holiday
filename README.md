@@ -49,15 +49,15 @@ print_r($holiday->getHolidays());
 
 | Code | Language | State                              |
 |------|----------|------------------------------------|
-| cz   | Czech    | planned :soon:                     |
-| de   | German   | fully supported :white_check_mark: |
-| en   | English  | fully supported :white_check_mark: |
-| es   | Spanish  | planned :soon:                     |
-| fr   | French   | planned :soon:                     |
-| hr   | Croatian | planned :soon:                     |
-| it   | Italian  | planned :soon:                     |
-| pl   | Polish   | planned :soon:                     |
-| se   | Swedish  | planned :soon:                     |
+| `cz` | Czech    | planned :soon:                     |
+| `de` | German   | fully supported :white_check_mark: |
+| `en` | English  | fully supported :white_check_mark: |
+| `es` | Spanish  | planned :soon:                     |
+| `fr` | French   | planned :soon:                     |
+| `hr` | Croatian | planned :soon:                     |
+| `it` | Italian  | planned :soon:                     |
+| `pl` | Polish   | planned :soon:                     |
+| `se` | Swedish  | planned :soon:                     |
 
 ## 4. Installation
 
