@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Releases
 
+### [0.1.11] - 2024-11-21
+
+* Add difference to csv and json
+
 ### [0.1.10] - 2024-11-21
 
 * Fix national holiday (AT)
