@@ -18,13 +18,13 @@ use Exception;
 use Ixnode\PhpPublicHoliday\Constant\Date;
 
 /**
- * Class HolidayItem
+ * Class PublicHolidayItem
  *
  * @author Björn Hempel <bjoern@hempel.li>
  * @version 0.1.0 (2024-07-18)
  * @since 0.1.0 (2024-07-18) First version.
  */
-readonly class HolidayItem
+readonly class PublicHolidayItem
 {
     public function __construct(private DateTimeImmutable $date, private string $name)
     {

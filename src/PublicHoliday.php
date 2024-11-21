@@ -16,12 +16,12 @@ namespace Ixnode\PhpPublicHoliday;
 use DateTimeImmutable;
 use DateTimeZone;
 use Exception;
-use Ixnode\PhpPublicHoliday\Configuration\Configuration;
 use Ixnode\PhpPublicHoliday\Configuration\Holiday\HolidayConfigurationAt;
 use Ixnode\PhpPublicHoliday\Configuration\Holiday\HolidayConfigurationDe;
-use Ixnode\PhpPublicHoliday\Configuration\Locale;
+use Ixnode\PhpPublicHoliday\Constant\Holiday;
 use Ixnode\PhpPublicHoliday\Constant\Date;
-use Ixnode\PhpPublicHoliday\Tests\Unit\HolidayDeTest;
+use Ixnode\PhpPublicHoliday\Constant\Locale;
+use Ixnode\PhpPublicHoliday\Tests\Unit\PublicHolidayDeTest;
 use Ixnode\PhpPublicHoliday\Tools\ArrayToCsv;
 use Ixnode\PhpPublicHoliday\Translation\TranslationDe;
 use Ixnode\PhpPublicHoliday\Translation\TranslationEn;
@@ -34,32 +34,32 @@ use Ixnode\PhpTimezone\Constants\State\StateAll;
 use LogicException;
 
 /**
- * Class Holiday
+ * Class PublicHoliday
  *
  * @author Björn Hempel <bjoern@hempel.li>
  * @version 0.1.0 (2024-07-18)
  * @since 0.1.0 (2024-07-18) First version.
- * @link HolidayDeTest
+ * @link PublicHolidayDeTest
  * @SuppressWarnings(PHPMD.ExcessiveClassComplexity)
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
-readonly class Holiday
+readonly class PublicHoliday
 {
     public function __construct(
         private int $year,
         private string $countryCode = CountryEurope::COUNTRY_CODE_DE,
         private string $stateCode = StateDe::STATE_CODE_ALL,
         private string $localeCode = PhpTimezoneLocale::DE,
-        private int $preGenerationYears = Configuration::DEFAULT_PRE_GENERATION_YEARS,
+        private int $preGenerationYears = Holiday::DEFAULT_PRE_GENERATION_YEARS,
     )
     {
         /* Validate pre-generation years. */
-        if ($preGenerationYears < Configuration::PRE_GENERATION_YEARS_MIN) {
+        if ($preGenerationYears < Holiday::PRE_GENERATION_YEARS_MIN) {
             throw new LogicException('Pre-generation years must be at least 1');
         }
 
         /* To avoid memory issues with large pre-generation years. */
-        if ($preGenerationYears > Configuration::PRE_GENERATION_YEARS_MAX) {
+        if ($preGenerationYears > Holiday::PRE_GENERATION_YEARS_MAX) {
             throw new LogicException('Pre-generation years must not exceed 3.');
         }
     }
@@ -178,7 +178,7 @@ readonly class Holiday
     /**
      * Returns a list of public holidays for the given year.
      *
-     * @return HolidayItem[]
+     * @return PublicHolidayItem[]
      * @throws Exception
      */
     public function getHolidays(): array
@@ -193,7 +193,7 @@ readonly class Holiday
         }
 
         /* Sort the holidays by date. */
-        usort($holidays, fn(HolidayItem $dateA, HolidayItem $dateB) => $dateA->getDate() <=> $dateB->getDate());
+        usort($holidays, fn(PublicHolidayItem $dateA, PublicHolidayItem $dateB) => $dateA->getDate() <=> $dateB->getDate());
 
         return $holidays;
     }
@@ -234,7 +234,7 @@ readonly class Holiday
         while ($dateStart <= $dateEnd) {
             $dayOfWeek = (int) $dateStart->format('w');
 
-            if ($dayOfWeek !== Configuration::DAY_SUNDAY && $dayOfWeek !== Configuration::DAY_SATURDAY) {
+            if ($dayOfWeek !== Holiday::DAY_SUNDAY && $dayOfWeek !== Holiday::DAY_SATURDAY) {
                 $dateStart = $dateStart->modify('+1 day');
                 continue;
             }
@@ -353,7 +353,7 @@ readonly class Holiday
      *
      * @throws Exception
      */
-    public function getNextWorkingDay(DateTimeImmutable $day = null, int $distanceWorkingDay = Configuration::DEFAULT_WORKING_DAYS_NEXT_DATE): DateTimeImmutable
+    public function getNextWorkingDay(DateTimeImmutable $day = null, int $distanceWorkingDay = Holiday::DEFAULT_WORKING_DAYS_NEXT_DATE): DateTimeImmutable
     {
         if (is_null($day)) {
             $day = new DateTimeImmutable();
@@ -388,7 +388,7 @@ readonly class Holiday
     /**
      * Adds state-specific public holidays to the given list of holidays.
      *
-     * @param HolidayItem[] $holidays
+     * @param PublicHolidayItem[] $holidays
      * @throws Exception
      */
     private function addHolidays(
@@ -423,11 +423,11 @@ readonly class Holiday
 
             $date = match (true) {
                 preg_match('~^\d{2}-\d{2}$~', $dateString) === 1 => new DateTimeImmutable(sprintf('%d-%s', $year, $dateString)),
-                $dateString === Configuration::BUSS_UND_BETTAG => $this->getBussUndBettag(),
+                $dateString === Holiday::BUSS_UND_BETTAG => $this->getBussUndBettag(),
                 default => $easterDate->modify($dateString),
             };
 
-            $holidays[] = new HolidayItem($date, $name);
+            $holidays[] = new PublicHolidayItem($date, $name);
         }
     }
 
@@ -443,7 +443,7 @@ readonly class Holiday
         $weekday = (int) $november23->format('w');
 
         /* Calculate the number of days to the previous Wednesday */
-        $daysToWednesday = ($weekday >= Configuration::LAST_WEDNESDAY) ? $weekday - Configuration::LAST_WEDNESDAY : $weekday + Configuration::NEXT_WEDNESDAY;
+        $daysToWednesday = ($weekday >= Holiday::LAST_WEDNESDAY) ? $weekday - Holiday::LAST_WEDNESDAY : $weekday + Holiday::NEXT_WEDNESDAY;
 
         /* Buß- und Bettag is the Wednesday before November 23rd */
         return $november23->modify(sprintf('-%d days', $daysToWednesday));

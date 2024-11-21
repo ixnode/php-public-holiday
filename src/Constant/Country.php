@@ -11,12 +11,12 @@
 
 declare(strict_types=1);
 
-namespace Ixnode\PhpPublicHoliday\Configuration;
+namespace Ixnode\PhpPublicHoliday\Constant;
 
 use Ixnode\PhpTimezone\Constants\CountryEurope;
 
 /**
- * Class Format
+ * Class Country
  *
  * @author Björn Hempel <bjoern@hempel.li>
  * @version 0.1.0 (2024-11-20)

@@ -15,20 +15,20 @@ namespace Ixnode\PhpPublicHoliday\Tests\Unit;
 
 use DateTimeImmutable;
 use Exception;
-use Ixnode\PhpPublicHoliday\Holiday;
+use Ixnode\PhpPublicHoliday\PublicHoliday;
 use Ixnode\PhpTimezone\Constants\CountryEurope;
 use Ixnode\PhpTimezone\Constants\State\Europe\StateDe;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class HolidayDeTest
+ * Class PublicHolidayDeTest
  *
  * @author Björn Hempel <bjoern@hempel.li>
  * @version 0.1.0 (2024-07-18)
  * @since 0.1.0 (2024-07-18) First version.
- * @link Holiday
+ * @link PublicHoliday
  */
-final class HolidayDeTest extends TestCase
+final class PublicHolidayDeTest extends TestCase
 {
     /**
      * Test wrapper
@@ -36,7 +36,7 @@ final class HolidayDeTest extends TestCase
      * @dataProvider dataProviderHoliday
      *
      * @test
-     * @testdox $number) Test Holiday $year $state
+     * @testdox $number) Test PublicHoliday $year $state
      * @param string[] $expectedHolidays
      * @throws Exception
      */
@@ -51,7 +51,7 @@ final class HolidayDeTest extends TestCase
         /* Arrange */
 
         /* Act */
-        $holiday = new Holiday($year, $country, $state);
+        $holiday = new PublicHoliday($year, $country, $state);
 
         /* Assert */
         $this->assertIsNumeric($number); // To avoid phpmd warning.
@@ -186,7 +186,7 @@ final class HolidayDeTest extends TestCase
      * @dataProvider dataProviderNoWorkingDays
      *
      * @test
-     * @testdox $number) Test Holiday $year $state
+     * @testdox $number) Test PublicHoliday $year $state
      * @param string[] $expectedHolidays
      * @throws Exception
      */
@@ -201,7 +201,7 @@ final class HolidayDeTest extends TestCase
         /* Arrange */
 
         /* Act */
-        $holiday = new Holiday($year, $country, $state);
+        $holiday = new PublicHoliday($year, $country, $state);
 
         /* Assert */
         $this->assertIsNumeric($number); // To avoid phpmd warning.
@@ -346,7 +346,7 @@ final class HolidayDeTest extends TestCase
      * @dataProvider dataProviderNextWorkingDay
      *
      * @test
-     * @testdox $number) Test Holiday $year $state
+     * @testdox $number) Test PublicHoliday $year $state
      * @throws Exception
      */
     public function wrapperNextWorkingDay(
@@ -362,7 +362,7 @@ final class HolidayDeTest extends TestCase
         /* Arrange */
 
         /* Act */
-        $holiday = new Holiday($year, $country, $state);
+        $holiday = new PublicHoliday($year, $country, $state);
 
         /* Assert */
         $this->assertIsNumeric($number); // To avoid phpmd warning.

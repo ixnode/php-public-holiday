@@ -11,16 +11,16 @@
 
 declare(strict_types=1);
 
-namespace Ixnode\PhpPublicHoliday\Configuration;
+namespace Ixnode\PhpPublicHoliday\Constant;
 
 /**
- * Class Configuration
+ * Class Holiday
  *
  * @author Björn Hempel <bjoern@hempel.li>
  * @version 0.1.0 (2024-07-18)
  * @since 0.1.0 (2024-07-18) First version.
  */
-readonly class Configuration
+readonly class Holiday
 {
     final public const BUSS_UND_BETTAG = 'Buß- und Bettag';
 

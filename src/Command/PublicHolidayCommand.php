@@ -17,16 +17,16 @@ use Ahc\Cli\Input\Command;
 use Ahc\Cli\Output\Color;
 use Ahc\Cli\Output\Writer;
 use Exception;
-use Ixnode\PhpPublicHoliday\Configuration\Country;
-use Ixnode\PhpPublicHoliday\Configuration\Format;
-use Ixnode\PhpPublicHoliday\Configuration\Locale;
-use Ixnode\PhpPublicHoliday\Configuration\State;
-use Ixnode\PhpPublicHoliday\Holiday;
+use Ixnode\PhpPublicHoliday\Constant\Country;
+use Ixnode\PhpPublicHoliday\Constant\Format;
+use Ixnode\PhpPublicHoliday\Constant\Locale;
+use Ixnode\PhpPublicHoliday\Constant\State;
+use Ixnode\PhpPublicHoliday\PublicHoliday;
 use Ixnode\PhpTimezone\Constants\Locale as PhpTimezoneLocale;
 use LogicException;
 
 /**
- * Class PhpPublicHolidayCommand
+ * Class PublicHolidayCommand
  *
  * @author Björn Hempel <bjoern@hempel.li>
  * @version 0.1.1 (2024-11-20)
@@ -47,7 +47,7 @@ class PublicHolidayCommand extends Command
     private Writer $writer;
 
     /**
-     * Configuration of country, state, year and format.
+     * Holiday of country, state, year and format.
      */
     public function __construct()
     {
@@ -155,7 +155,7 @@ class PublicHolidayCommand extends Command
      */
     private function printCsv(string $country, string $state, int $year, string $language): void
     {
-        $holiday = new Holiday(
+        $holiday = new PublicHoliday(
             year: $year,
             countryCode: $country,
             stateCode: $state,
@@ -178,7 +178,7 @@ class PublicHolidayCommand extends Command
      */
     private function printJson(string $country, string $state, int $year, string $language): void
     {
-        $holiday = new Holiday(
+        $holiday = new PublicHoliday(
             year: $year,
             countryCode: $country,
             stateCode: $state,
@@ -200,7 +200,7 @@ class PublicHolidayCommand extends Command
      */
     private function printText(string $country, string $state, int $year, string $localeCode): void
     {
-        $holiday = new Holiday(
+        $holiday = new PublicHoliday(
             year: $year,
             countryCode: $country,
             stateCode: $state,

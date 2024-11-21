@@ -32,7 +32,7 @@ final class ArrayToCsvTest extends TestCase
      * @dataProvider dataProviderCsv
      *
      * @test
-     * @testdox $number) Test Holiday $year $state
+     * @testdox $number) Test PublicHoliday $year $state
      * @param int $number
      * @param array<int, array<int, string|int>> $data
      * @param string $csvExpected

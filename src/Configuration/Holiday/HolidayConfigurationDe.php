@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace Ixnode\PhpPublicHoliday\Configuration\Holiday;
 
-use Ixnode\PhpPublicHoliday\Configuration\Configuration;
-use Ixnode\PhpPublicHoliday\Tests\Unit\HolidayDeTest;
+use Ixnode\PhpPublicHoliday\Constant\Holiday;
+use Ixnode\PhpPublicHoliday\Tests\Unit\PublicHolidayDeTest;
 use Ixnode\PhpPublicHoliday\Translation\TranslationKeys;
 use Ixnode\PhpTimezone\Constants\State\Europe\StateDe;
 
@@ -24,7 +24,7 @@ use Ixnode\PhpTimezone\Constants\State\Europe\StateDe;
  * @author Björn Hempel <bjoern@hempel.li>
  * @version 0.1.0 (2024-07-18)
  * @since 0.1.0 (2024-07-18) First version.
- * @link HolidayDeTest
+ * @link PublicHolidayDeTest
  */
 readonly class HolidayConfigurationDe
 {
@@ -121,7 +121,7 @@ readonly class HolidayConfigurationDe
         ],
         [
             'name' => TranslationKeys::BUSS_UND_BETTAG,
-            'date' => Configuration::BUSS_UND_BETTAG,
+            'date' => Holiday::BUSS_UND_BETTAG,
             'states' => [StateDe::STATE_CODE_SN],
         ],
         [

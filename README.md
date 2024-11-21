@@ -19,7 +19,7 @@
 ## 1. Usage
 
 ```php
-use Ixnode\PhpPublicHoliday\Holiday;
+use Ixnode\PhpPublicHoliday\PublicHoliday;
 ```
 
 ### 1.1 Get the public holidays of Germany from the state of Saxony
@@ -33,7 +33,7 @@ $locale = 'de';
 $holiday = new Holiday(year: $year, countryCode: $country, stateCode: $state, localeCode: $locale);
 
 print_r($holiday->getHolidays());
-// (array) [Ixnode\PhpPublicHoliday\HolidayItem Object, ...]
+// (array) [Ixnode\PhpPublicHoliday\PublicHolidayItem Object, ...]
 // - (DateTimeImmutable) ->getDate()
 // - (string) ->getName()
 ```
