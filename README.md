@@ -13,7 +13,8 @@
 
 > This PHP package automatically generates holidays for a given year, considering both federal states and the country.
 > It provides an easy-to-use interface to retrieve public holidays based on specific regions, ensuring accurate and
-> up-to-date holiday information for all supported areas.
+> up-to-date holiday information for all supported areas. Movable public holidays such as Easter Monday are calculated
+> automatically using the PHP function `easter_date()`. Static public holidays are permanently stored.
 
 ## 1. Usage
 
