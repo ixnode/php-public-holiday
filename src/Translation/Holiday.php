@@ -28,6 +28,7 @@ readonly class Holiday
     final public const HOLIDAY_CODE_ALL_SAINTS_DAY = 'ALL_SAINTS_DAY';
     final public const HOLIDAY_CODE_ASSUMPTION_OF_MARY = 'ASSUMPTION_OF_MARY';
     final public const HOLIDAY_CODE_AUGSBURG_PEACE_FESTIVAL = 'AUGSBURG_PEACE_FESTIVAL';
+    final public const HOLIDAY_CODE_BERCHTOLDSTAG = 'BERCHTOLDSTAG';
     final public const HOLIDAY_CODE_BIBLICAL_MAGI = 'BIBLICAL_MAGI';
     final public const HOLIDAY_CODE_BOXING_DAY = 'BOXING_DAY';
     final public const HOLIDAY_CODE_BUSS_UND_BETTAG = 'BUSS_UND_BETTAG';
@@ -38,6 +39,7 @@ readonly class Holiday
     final public const HOLIDAY_CODE_EASTER_SUNDAY = 'EASTER_SUNDAY';
     final public const HOLIDAY_CODE_FEAST_OF_CORPUS_CHRISTI = 'FEAST_OF_CORPUS_CHRISTI';
     final public const HOLIDAY_CODE_FEAST_OF_THE_ASCENSION = 'FEAST_OF_THE_ASCENSION';
+    final public const HOLIDAY_CODE_FEAST_OF_THE_ASCENSION_CH = 'FEAST_OF_THE_ASCENSION_CH';
     final public const HOLIDAY_CODE_GERMAN_UNITY_DAY = 'GERMAN_UNITY_DAY';
     final public const HOLIDAY_CODE_GOOD_FRIDAY = 'GOOD_FRIDAY';
     final public const HOLIDAY_CODE_IMMACULATE_CONCEPTION = 'IMMACULATE_CONCEPTION';
@@ -45,10 +47,13 @@ readonly class Holiday
     final public const HOLIDAY_CODE_LABOUR_DAY = 'LABOUR_DAY';
     final public const HOLIDAY_CODE_MAUNDY_THURSDAY = 'MAUNDY_THURSDAY';
     final public const HOLIDAY_CODE_NATIONAL_HOLIDAY = 'NATIONAL_HOLIDAY';
-    final public const HOLIDAY_CODE_STATE_HOLIDAY = 'STATE_HOLIDAY';
     final public const HOLIDAY_CODE_NEW_YEAR = 'NEW_YEAR';
+    final public const HOLIDAY_CODE_SAINT_JOSEPHS_DAY = 'SAINT_JOSEPHS_DAY';
+    final public const HOLIDAY_CODE_STATE_HOLIDAY = 'STATE_HOLIDAY';
+    final public const HOLIDAY_CODE_SWISS_NATIONAL_DAY = 'SWISS_NATIONAL_DAY';
     final public const HOLIDAY_CODE_REFORMATION_DAY = 'REFORMATION_DAY';
     final public const HOLIDAY_CODE_STEFANITAG = 'STEFANITAG';
+    final public const HOLIDAY_CODE_STEFANITAG_CH = 'STEFANITAG_CH';
     final public const HOLIDAY_CODE_WHIT_MONDAY = 'WHIT_MONDAY';
     final public const HOLIDAY_CODE_WHIT_SUNDAY = 'WHIT_SUNDAY';
 
@@ -67,6 +72,19 @@ readonly class Holiday
         Locale::IT_IT => 'Capodanno',
         Locale::PL_PL => 'Nowy Rok',
         Locale::SV_SE => 'Nyår',
+    ];
+
+    /* 01-02 */
+    final public const HOLIDAY_NAME_BERCHTOLDSTAG = [
+        Locale::CS_CZ => 'Berchtoldův den',
+        Locale::DE_DE => 'Berchtoldstag',
+        Locale::EN_GB => 'Berchtold\'s Day',
+        Locale::ES_ES => 'Día de Berchtold',
+        Locale::FR_FR => 'Journée du Berchtold',
+        Locale::HR_HR => 'Berchtoldov dan',
+        Locale::IT_IT => 'Il giorno di Berchtold',
+        Locale::PL_PL => 'Dzień Berchtolda',
+        Locale::SV_SE => 'Berchtolds dag',
     ];
 
     /* 01-06 */
@@ -95,6 +113,19 @@ readonly class Holiday
         Locale::SV_SE => 'Internationella kvinnodagen',
     ];
 
+    /* 03-19 */
+    final public const HOLIDAY_NAME_SAINT_JOSEPHS_DAY =  [
+        Locale::CS_CZ => 'Den svatého Josefa',
+        Locale::DE_DE => 'Josefstag',
+        Locale::EN_GB => 'Saint Joseph\'s Day',
+        Locale::ES_ES => 'Día de San José',
+        Locale::FR_FR => 'Fête de la Saint Joseph',
+        Locale::HR_HR => 'Svetog Josipa',
+        Locale::IT_IT => 'Giorno di San Giuseppe',
+        Locale::PL_PL => 'Dzień Świętego Józefa',
+        Locale::SV_SE => 'Sankt Josefs dag',
+    ];
+
     /* 05-01 */
     final public const HOLIDAY_NAME_LABOUR_DAY =  [
         Locale::CS_CZ => 'Svátek práce',
@@ -119,6 +150,19 @@ readonly class Holiday
         Locale::IT_IT => 'Giorni festivi',
         Locale::PL_PL => 'Dni wolne od pracy',
         Locale::SV_SE => 'Bankdagar',
+    ];
+
+    /* 08-08 */
+    final public const HOLIDAY_NAME_SWISS_NATIONAL_DAY = [
+        Locale::CS_CZ => 'Švýcarský národní den',
+        Locale::DE_DE => 'Bundesfeiertag',
+        Locale::EN_GB => 'Swiss National Day',
+        Locale::ES_ES => 'Fiesta Nacional de Suiza',
+        Locale::FR_FR => 'Fête nationale suisse',
+        Locale::HR_HR => 'Nacionalni dan Švicarske',
+        Locale::IT_IT => 'Festa nazionale svizzera',
+        Locale::PL_PL => 'Święto Narodowe Szwajcarii',
+        Locale::SV_SE => 'Schweiz nationaldag',
     ];
 
     /* 08-08 */
@@ -277,12 +321,23 @@ readonly class Holiday
         Locale::PL_PL => 'Dzień Świętego Szczepana',
         Locale::SV_SE => 'Stefani dag',
     ];
+    final public const HOLIDAY_NAME_STEFANITAG_CH =  [
+        Locale::CS_CZ => 'Svátek svatého Štěpána',
+        Locale::DE_DE => 'Stephanstag',
+        Locale::EN_GB => 'Saint Stephen\'s Day',
+        Locale::ES_ES => 'Día de San Esteban',
+        Locale::FR_FR => 'Fête de la Saint-Étienne',
+        Locale::HR_HR => 'Prvi dan po Božiću, Sveti Stjepan',
+        Locale::IT_IT => 'Giorno di Santo Stefano',
+        Locale::PL_PL => 'Dzień Świętego Szczepana',
+        Locale::SV_SE => 'Stefani dag',
+    ];
 
     /*
-     * B) Static holiday names
+     * B) Dynamic holiday names
      */
 
-    /* ~ */
+    /* Easter: -3 days */
     final public const HOLIDAY_NAME_MAUNDY_THURSDAY =  [
         Locale::CS_CZ => 'Zelený čtvrtek',
         Locale::DE_DE => 'Gründonnerstag',
@@ -295,7 +350,7 @@ readonly class Holiday
         Locale::SV_SE => 'Skärtorsdagen',
     ];
 
-    /* ~ */
+    /* Easter: -2 days */
     final public const HOLIDAY_NAME_GOOD_FRIDAY =  [
         Locale::CS_CZ => 'Velký pátek',
         Locale::DE_DE => 'Karfreitag',
@@ -308,7 +363,7 @@ readonly class Holiday
         Locale::SV_SE => 'Långfredagen',
     ];
 
-    /* ~ */
+    /* Easter: +0 days */
     final public const HOLIDAY_NAME_EASTER_SUNDAY =  [
         Locale::CS_CZ => 'Slavnost Zmrtvýchvstání Páně',
         Locale::DE_DE => 'Ostersonntag',
@@ -321,7 +376,7 @@ readonly class Holiday
         Locale::SV_SE => 'Påskdagen',
     ];
 
-    /* ~ */
+    /* Easter: +1 days */
     final public const HOLIDAY_NAME_EASTER_MONDAY =  [
         Locale::CS_CZ => 'Velikonoční pondělí',
         Locale::DE_DE => 'Ostermontag',
@@ -334,7 +389,31 @@ readonly class Holiday
         Locale::SV_SE => 'Annandag påsk',
     ];
 
-    /* ~ */
+    /* Easter: +39 days */
+    final public const HOLIDAY_NAME_FEAST_OF_THE_ASCENSION =  [
+        Locale::CS_CZ => 'Svátek Nanebevstoupení Páně',
+        Locale::DE_DE => 'Christi Himmelfahrt',
+        Locale::EN_GB => 'Feast of the Ascension',
+        Locale::ES_ES => 'Día de la Ascensión',
+        Locale::FR_FR => 'Ascension',
+        Locale::HR_HR => 'Uzašašće',
+        Locale::IT_IT => 'Ascensione (festività)',
+        Locale::PL_PL => 'Wniebowstąpienie Pańskie',
+        Locale::SV_SE => 'Kristi himmelsfärdsdag',
+    ];
+    final public const HOLIDAY_NAME_FEAST_OF_THE_ASCENSION_CH =  [
+        Locale::CS_CZ => 'Svátek Nanebevstoupení Páně',
+        Locale::DE_DE => 'Auffahrt',
+        Locale::EN_GB => 'Feast of the Ascension',
+        Locale::ES_ES => 'Día de la Ascensión',
+        Locale::FR_FR => 'Ascension',
+        Locale::HR_HR => 'Uzašašće',
+        Locale::IT_IT => 'Ascensione (festività)',
+        Locale::PL_PL => 'Wniebowstąpienie Pańskie',
+        Locale::SV_SE => 'Kristi himmelsfärdsdag',
+    ];
+
+    /* Easter: +49 days */
     final public const HOLIDAY_NAME_WHIT_SUNDAY =  [
         Locale::CS_CZ => 'Letnice',
         Locale::DE_DE => 'Pfingstsonntag',
@@ -347,7 +426,7 @@ readonly class Holiday
         Locale::SV_SE => 'Pingst',
     ];
 
-    /* ~ */
+    /* Easter: +50 days */
     final public const HOLIDAY_NAME_WHIT_MONDAY =  [
         Locale::CS_CZ => 'Bílé pondělí',
         Locale::DE_DE => 'Pfingstmontag',
@@ -360,7 +439,7 @@ readonly class Holiday
         Locale::SV_SE => 'Annandag pingst',
     ];
 
-    /* ~ */
+    /* Easter: +60 days */
     final public const HOLIDAY_NAME_FEAST_OF_CORPUS_CHRISTI =  [
         Locale::CS_CZ => 'Slavnost Těla a Krve Páně',
         Locale::DE_DE => 'Fronleichnam',
@@ -373,20 +452,11 @@ readonly class Holiday
         Locale::SV_SE => 'Corpus Christi',
     ];
 
-    /* ~ */
-    final public const HOLIDAY_NAME_FEAST_OF_THE_ASCENSION =  [
-        Locale::CS_CZ => 'Svátek Nanebevstoupení Páně',
-        Locale::DE_DE => 'Christi Himmelfahrt',
-        Locale::EN_GB => 'Feast of the Ascension',
-        Locale::ES_ES => 'Día de la Ascensión',
-        Locale::FR_FR => 'Ascension',
-        Locale::HR_HR => 'Uzašašće',
-        Locale::IT_IT => 'Ascensione (festività)',
-        Locale::PL_PL => 'Wniebowstąpienie Pańskie',
-        Locale::SV_SE => 'Kristi himmelsfärdsdag',
-    ];
+    /*
+     * C) Special dynamic holiday names
+     */
 
-    /* ~ */
+    /* Wednesday before 23 November */
     final public const HOLIDAY_NAME_BUSS_UND_BETTAG =  [
         Locale::CS_CZ => 'Den pokání a modlitby',
         Locale::DE_DE => 'Buß- und Bettag',
@@ -406,6 +476,7 @@ readonly class Holiday
         self::HOLIDAY_CODE_ALL_SAINTS_DAY => self::HOLIDAY_NAME_ALL_SAINTS_DAY,
         self::HOLIDAY_CODE_ASSUMPTION_OF_MARY => self::HOLIDAY_NAME_ASSUMPTION_OF_MARY,
         self::HOLIDAY_CODE_AUGSBURG_PEACE_FESTIVAL => self::HOLIDAY_NAME_AUGSBURG_PEACE_FESTIVAL,
+        self::HOLIDAY_CODE_BERCHTOLDSTAG => self::HOLIDAY_NAME_BERCHTOLDSTAG,
         self::HOLIDAY_CODE_BIBLICAL_MAGI => self::HOLIDAY_NAME_BIBLICAL_MAGI,
         self::HOLIDAY_CODE_BOXING_DAY => self::HOLIDAY_NAME_BOXING_DAY,
         self::HOLIDAY_CODE_BUSS_UND_BETTAG => self::HOLIDAY_NAME_BUSS_UND_BETTAG,
@@ -416,6 +487,7 @@ readonly class Holiday
         self::HOLIDAY_CODE_EASTER_SUNDAY => self::HOLIDAY_NAME_EASTER_SUNDAY,
         self::HOLIDAY_CODE_FEAST_OF_CORPUS_CHRISTI => self::HOLIDAY_NAME_FEAST_OF_CORPUS_CHRISTI,
         self::HOLIDAY_CODE_FEAST_OF_THE_ASCENSION => self::HOLIDAY_NAME_FEAST_OF_THE_ASCENSION,
+        self::HOLIDAY_CODE_FEAST_OF_THE_ASCENSION_CH => self::HOLIDAY_NAME_FEAST_OF_THE_ASCENSION_CH,
         self::HOLIDAY_CODE_GERMAN_UNITY_DAY => self::HOLIDAY_NAME_GERMAN_UNITY_DAY,
         self::HOLIDAY_CODE_GOOD_FRIDAY => self::HOLIDAY_NAME_GOOD_FRIDAY,
         self::HOLIDAY_CODE_IMMACULATE_CONCEPTION => self::HOLIDAY_NAME_IMMACULATE_CONCEPTION,
@@ -425,8 +497,11 @@ readonly class Holiday
         self::HOLIDAY_CODE_NATIONAL_HOLIDAY => self::HOLIDAY_NAME_NATIONAL_HOLIDAY,
         self::HOLIDAY_CODE_NEW_YEAR => self::HOLIDAY_NAME_NEW_YEAR,
         self::HOLIDAY_CODE_REFORMATION_DAY => self::HOLIDAY_NAME_REFORMATION_DAY,
+        self::HOLIDAY_CODE_SAINT_JOSEPHS_DAY => self::HOLIDAY_NAME_SAINT_JOSEPHS_DAY,
         self::HOLIDAY_CODE_STATE_HOLIDAY => self::HOLIDAY_NAME_STATE_HOLIDAY,
         self::HOLIDAY_CODE_STEFANITAG => self::HOLIDAY_NAME_STEFANITAG,
+        self::HOLIDAY_CODE_STEFANITAG_CH => self::HOLIDAY_NAME_STEFANITAG_CH,
+        self::HOLIDAY_CODE_SWISS_NATIONAL_DAY => self::HOLIDAY_NAME_SWISS_NATIONAL_DAY,
         self::HOLIDAY_CODE_WHIT_MONDAY => self::HOLIDAY_NAME_WHIT_MONDAY,
         self::HOLIDAY_CODE_WHIT_SUNDAY => self::HOLIDAY_NAME_WHIT_SUNDAY,
     ];

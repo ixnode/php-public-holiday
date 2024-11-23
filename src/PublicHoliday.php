@@ -17,8 +17,7 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Exception;
 use Ixnode\PhpPublicHoliday\Configuration\ConfigurationDefault;
-use Ixnode\PhpPublicHoliday\Configuration\Holiday\HolidayConfigurationAt;
-use Ixnode\PhpPublicHoliday\Configuration\Holiday\HolidayConfigurationDe;
+use Ixnode\PhpPublicHoliday\Constant\Country;
 use Ixnode\PhpPublicHoliday\Constant\Date;
 use Ixnode\PhpPublicHoliday\Constant\Holiday;
 use Ixnode\PhpPublicHoliday\Converter\CountryCode;
@@ -350,11 +349,11 @@ readonly class PublicHoliday
         int $year
     ): void
     {
-        $holidaysCountry = match ($this->countryCode) {
-            CountryEurope::COUNTRY_CODE_DE => HolidayConfigurationDe::HOLIDAYS,
-            CountryEurope::COUNTRY_CODE_AT => HolidayConfigurationAt::HOLIDAYS,
-            default => throw new LogicException(sprintf('The given country "%s" is not supported.', $this->countryCode)),
-        };
+        if (!array_key_exists($this->countryCode, Country::COUNTRY_HOLIDAYS)) {
+            throw new LogicException(sprintf('The given country "%s" is not supported.', $this->countryCode));
+        }
+
+        $holidaysCountry = Country::COUNTRY_HOLIDAYS[$this->countryCode];
 
         foreach ($holidaysCountry as $holidayData) {
             $states = $holidayData['states'];

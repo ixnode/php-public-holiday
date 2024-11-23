@@ -13,6 +13,9 @@ declare(strict_types=1);
 
 namespace Ixnode\PhpPublicHoliday\Constant;
 
+use Ixnode\PhpPublicHoliday\Configuration\Holiday\HolidayConfigurationAt;
+use Ixnode\PhpPublicHoliday\Configuration\Holiday\HolidayConfigurationCh;
+use Ixnode\PhpPublicHoliday\Configuration\Holiday\HolidayConfigurationDe;
 use Ixnode\PhpTimezone\Constants\CountryEurope;
 
 /**
@@ -26,6 +29,13 @@ readonly class Country
 {
     final public const COUNTRIES_SUPPORTED = [
         CountryEurope::COUNTRY_CODE_AT,
+        CountryEurope::COUNTRY_CODE_CH,
         CountryEurope::COUNTRY_CODE_DE,
+    ];
+
+    final public const COUNTRY_HOLIDAYS = [
+        CountryEurope::COUNTRY_CODE_AT => HolidayConfigurationAt::HOLIDAYS,
+        CountryEurope::COUNTRY_CODE_CH => HolidayConfigurationCh::HOLIDAYS,
+        CountryEurope::COUNTRY_CODE_DE => HolidayConfigurationDe::HOLIDAYS,
     ];
 }
