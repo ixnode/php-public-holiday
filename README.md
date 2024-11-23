@@ -50,15 +50,15 @@ print_r($holiday->getHolidays());
 
 | Code | Language | Support                              |
 |------|----------|--------------------------------------|
-| `cz` | Czech    | _planned_ :soon:                     |
+| `cz` | Czech    | _fully supported_ :heavy_check_mark: |
 | `de` | German   | _fully supported_ :heavy_check_mark: |
 | `en` | English  | _fully supported_ :heavy_check_mark: |
-| `es` | Spanish  | _planned_ :soon:                     |
-| `fr` | French   | _planned_ :soon:                     |
-| `hr` | Croatian | _planned_ :soon:                     |
-| `it` | Italian  | _planned_ :soon:                     |
-| `pl` | Polish   | _planned_ :soon:                     |
-| `se` | Swedish  | _planned_ :soon:                     |
+| `es` | Spanish  | _fully supported_ :heavy_check_mark: |
+| `fr` | French   | _fully supported_ :heavy_check_mark: |
+| `hr` | Croatian | _fully supported_ :heavy_check_mark: |
+| `it` | Italian  | _fully supported_ :heavy_check_mark: |
+| `pl` | Polish   | _fully supported_ :heavy_check_mark: |
+| `sv` | Swedish  | _fully supported_ :heavy_check_mark: |
 
 ## 4. Installation
 
@@ -116,8 +116,15 @@ Locale:  de (Deutsch)
 
 Available options:
 
+* `cz`
 * `de` (default)
 * `en`
+* `es`
+* `fr`
+* `hr`
+* `it`
+* `pl`
+* `sv`
 
 ```bash
 bin/console ph DE SN --year=2025 --locale=en --format=text
@@ -144,6 +151,35 @@ Locale:  en (English)
 - 2025-11-19: Buß- und Bettag
 - 2025-12-25: Christmas Day
 - 2025-12-26: Boxing Day
+
+```
+
+```bash
+bin/console ph AT K --year=2025 --locale=sv --format=text
+```
+
+```bash
+
+Year:    2025
+Country: AT (Österrike)
+State:   K (Kärnten)
+Locale:  sv (Svenska)
+
+- 2025-01-01: Nyår (39 days)
+- 2025-01-06: Tre vise männen (44 days)
+- 2025-04-20: Påskdagen (147 days)
+- 2025-04-21: Annandag påsk (148 days)
+- 2025-05-01: Bankdagar (159 days)
+- 2025-05-29: Kristi himmelsfärdsdag (186 days)
+- 2025-06-08: Pingst (196 days)
+- 2025-06-09: Annandag pingst (197 days)
+- 2025-06-19: Corpus Christi (207 days)
+- 2025-08-15: Jungfru Marie himmelsfärd (265 days)
+- 2025-10-26: Nationaldag (337 days)
+- 2025-11-01: Alla helgons dag (343 days)
+- 2025-12-08: Obefläckade avlelsen (380 days)
+- 2025-12-25: Jul (397 days)
+- 2025-12-26: Stefani dag (398 days)
 
 ```
 

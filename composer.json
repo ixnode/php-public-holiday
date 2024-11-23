@@ -39,7 +39,7 @@
     "php": "^8.2",
     "adhocore/cli": "^v1.0.0",
     "ext-calendar": "*",
-    "ixnode/php-timezone": "^0.1.23"
+    "ixnode/php-timezone": "^0.1.25"
   },
   "require-dev": {
     "phpunit/phpunit": "^9.5",

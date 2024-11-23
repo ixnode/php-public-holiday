@@ -147,8 +147,15 @@ readonly class PublicHoliday
     public function getLocaleCodeFull(): string
     {
         return match ($this->localeCode) {
+            PhpTimezoneLocale::CS => PhpTimezoneLocale::CS_CZ,
             PhpTimezoneLocale::DE => PhpTimezoneLocale::DE_DE,
             PhpTimezoneLocale::EN => PhpTimezoneLocale::EN_GB,
+            PhpTimezoneLocale::ES => PhpTimezoneLocale::ES_ES,
+            PhpTimezoneLocale::FR => PhpTimezoneLocale::FR_FR,
+            PhpTimezoneLocale::HR => PhpTimezoneLocale::HR_HR,
+            PhpTimezoneLocale::IT => PhpTimezoneLocale::IT_IT,
+            PhpTimezoneLocale::PL => PhpTimezoneLocale::PL_PL,
+            PhpTimezoneLocale::SV => PhpTimezoneLocale::SV_SE,
             default => $this->localeCode,
         };
     }
@@ -163,8 +170,15 @@ readonly class PublicHoliday
         }
 
         $language = match ($this->localeCode) {
+            PhpTimezoneLocale::CS => Language::CS,
             PhpTimezoneLocale::DE => Language::DE,
             PhpTimezoneLocale::EN => Language::EN,
+            PhpTimezoneLocale::ES => Language::ES,
+            PhpTimezoneLocale::FR => Language::FR,
+            PhpTimezoneLocale::HR => Language::HR,
+            PhpTimezoneLocale::IT => Language::IT,
+            PhpTimezoneLocale::PL => Language::PL,
+            PhpTimezoneLocale::SV => Language::SV,
         };
 
         if (!array_key_exists($this->localeCode, $language)) {
