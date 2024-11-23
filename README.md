@@ -71,7 +71,7 @@ vendor/bin/php-public-holiday -V
 ```
 
 ```bash
-php-public-holiday 0.1.14 (2024-11-23 11:20:29) - Björn Hempel <bjoern@hempel.li>
+php-public-holiday 1.0.0 (2024-11-23 15:08:05) - Björn Hempel <bjoern@hempel.li>
 ```
 
 ## 5. Command line tool
