@@ -31,12 +31,4 @@ readonly class Holiday
     final public const LAST_WEDNESDAY = 3;
 
     final public const NEXT_WEDNESDAY = 4;
-
-    final public const DEFAULT_WORKING_DAYS_NEXT_DATE = 14;
-
-    final public const DEFAULT_PRE_GENERATION_YEARS = 1;
-
-    final public const PRE_GENERATION_YEARS_MIN = 1;
-
-    final public const PRE_GENERATION_YEARS_MAX = 3;
 }

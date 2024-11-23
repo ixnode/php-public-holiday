@@ -25,14 +25,14 @@ use Ixnode\PhpTimezone\Constants\Locale as PhpTimezoneLocale;
 readonly class Locale
 {
     final public const LOCALES_SUPPORTED = [
-        PhpTimezoneLocale::CS,
-        PhpTimezoneLocale::DE,
-        PhpTimezoneLocale::EN,
-        PhpTimezoneLocale::ES,
-        PhpTimezoneLocale::FR,
-        PhpTimezoneLocale::HR,
-        PhpTimezoneLocale::IT,
-        PhpTimezoneLocale::PL,
-        PhpTimezoneLocale::SV,
+        PhpTimezoneLocale::CS_CZ,
+        PhpTimezoneLocale::DE_DE,
+        PhpTimezoneLocale::EN_GB,
+        PhpTimezoneLocale::ES_ES,
+        PhpTimezoneLocale::FR_FR,
+        PhpTimezoneLocale::HR_HR,
+        PhpTimezoneLocale::IT_IT,
+        PhpTimezoneLocale::PL_PL,
+        PhpTimezoneLocale::SV_SE,
     ];
 }

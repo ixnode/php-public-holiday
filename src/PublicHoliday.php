@@ -16,20 +16,20 @@ namespace Ixnode\PhpPublicHoliday;
 use DateTimeImmutable;
 use DateTimeZone;
 use Exception;
+use Ixnode\PhpPublicHoliday\Configuration\ConfigurationDefault;
 use Ixnode\PhpPublicHoliday\Configuration\Holiday\HolidayConfigurationAt;
 use Ixnode\PhpPublicHoliday\Configuration\Holiday\HolidayConfigurationDe;
-use Ixnode\PhpPublicHoliday\Constant\Holiday;
 use Ixnode\PhpPublicHoliday\Constant\Date;
-use Ixnode\PhpPublicHoliday\Constant\Locale;
+use Ixnode\PhpPublicHoliday\Constant\Holiday;
+use Ixnode\PhpPublicHoliday\Converter\CountryCode;
+use Ixnode\PhpPublicHoliday\Converter\LocaleCode;
+use Ixnode\PhpPublicHoliday\Converter\StateCode;
 use Ixnode\PhpPublicHoliday\Tests\Unit\PublicHolidayDeTest;
 use Ixnode\PhpPublicHoliday\Tools\ArrayToCsv;
 use Ixnode\PhpPublicHoliday\Translation\Holiday as TranslationHoliday;
-use Ixnode\PhpTimezone\Constants\CountryAll;
 use Ixnode\PhpTimezone\Constants\CountryEurope;
-use Ixnode\PhpTimezone\Constants\Language;
 use Ixnode\PhpTimezone\Constants\Locale as PhpTimezoneLocale;
 use Ixnode\PhpTimezone\Constants\State\Europe\StateDe;
-use Ixnode\PhpTimezone\Constants\State\StateAll;
 use LogicException;
 
 /**
@@ -48,17 +48,17 @@ readonly class PublicHoliday
         private int $year,
         private string $countryCode = CountryEurope::COUNTRY_CODE_DE,
         private string $stateCode = StateDe::STATE_CODE_ALL,
-        private string $localeCode = PhpTimezoneLocale::DE,
-        private int $preGenerationYears = Holiday::DEFAULT_PRE_GENERATION_YEARS,
+        private string $localeCode = ConfigurationDefault::LOCALE,
+        private int $preGenerationYears = ConfigurationDefault::PRE_GENERATION_YEARS,
     )
     {
         /* Validate pre-generation years. */
-        if ($preGenerationYears < Holiday::PRE_GENERATION_YEARS_MIN) {
+        if ($preGenerationYears < ConfigurationDefault::PRE_GENERATION_YEARS_MIN) {
             throw new LogicException('Pre-generation years must be at least 1');
         }
 
         /* To avoid memory issues with large pre-generation years. */
-        if ($preGenerationYears > Holiday::PRE_GENERATION_YEARS_MAX) {
+        if ($preGenerationYears > ConfigurationDefault::PRE_GENERATION_YEARS_MAX) {
             throw new LogicException('Pre-generation years must not exceed 3.');
         }
     }
@@ -84,19 +84,7 @@ readonly class PublicHoliday
      */
     public function getCountry(): string
     {
-        if (!array_key_exists($this->countryCode, CountryAll::COUNTRY_NAMES)) {
-            throw new LogicException(sprintf('Country code "%s" does not exist.', $this->countryCode));
-        }
-
-        $countryData = CountryAll::COUNTRY_NAMES[$this->countryCode];
-
-        $locale = $this->getLocaleCodeFull();
-
-        if (!array_key_exists($locale, $countryData)) {
-            throw new LogicException(sprintf('Locale code "%s" does not exist.', $locale));
-        }
-
-        return $countryData[$locale];
+        return (new CountryCode($this->countryCode))->getCountryName($this->localeCode);
     }
 
     /**
@@ -112,25 +100,8 @@ readonly class PublicHoliday
      */
     public function getState(): string
     {
-        if (!array_key_exists($this->countryCode, StateAll::STATE_NAMES)) {
-            throw new LogicException(sprintf('Country code "%s" does not exist.', $this->countryCode));
-        }
-
-        $stateNames = StateAll::STATE_NAMES[$this->countryCode];
-
-        if (!array_key_exists($this->stateCode, $stateNames)) {
-            throw new LogicException(sprintf('State code "%s" does not exist.', $this->stateCode));
-        }
-
-        $stateData = $stateNames[$this->stateCode];
-
-        $locale = $this->getLocaleCodeFull();
-
-        if (!array_key_exists($locale, $stateData)) {
-            throw new LogicException(sprintf('Locale code "%s" does not exist.', $locale));
-        }
-
-        return $stateData[$locale];
+        return (new StateCode(countryCode: $this->countryCode, stateCode: $this->stateCode))
+            ->getStateName($this->localeCode);
     }
 
     /**
@@ -146,46 +117,15 @@ readonly class PublicHoliday
      */
     public function getLocaleCodeFull(): string
     {
-        return match ($this->localeCode) {
-            PhpTimezoneLocale::CS => PhpTimezoneLocale::CS_CZ,
-            PhpTimezoneLocale::DE => PhpTimezoneLocale::DE_DE,
-            PhpTimezoneLocale::EN => PhpTimezoneLocale::EN_GB,
-            PhpTimezoneLocale::ES => PhpTimezoneLocale::ES_ES,
-            PhpTimezoneLocale::FR => PhpTimezoneLocale::FR_FR,
-            PhpTimezoneLocale::HR => PhpTimezoneLocale::HR_HR,
-            PhpTimezoneLocale::IT => PhpTimezoneLocale::IT_IT,
-            PhpTimezoneLocale::PL => PhpTimezoneLocale::PL_PL,
-            PhpTimezoneLocale::SV => PhpTimezoneLocale::SV_SE,
-            default => $this->localeCode,
-        };
+        return (new LocaleCode($this->localeCode))->getLocaleCode();
     }
 
     /**
      * Returns the translated locale code of this object.
      */
-    public function getLocale(): string
+    public function getLanguage(): string
     {
-        if (!in_array($this->localeCode, Locale::LOCALES_SUPPORTED, true)) {
-            throw new LogicException(sprintf('Locale code "%s" is not supported.', $this->localeCode));
-        }
-
-        $language = match ($this->localeCode) {
-            PhpTimezoneLocale::CS => Language::CS,
-            PhpTimezoneLocale::DE => Language::DE,
-            PhpTimezoneLocale::EN => Language::EN,
-            PhpTimezoneLocale::ES => Language::ES,
-            PhpTimezoneLocale::FR => Language::FR,
-            PhpTimezoneLocale::HR => Language::HR,
-            PhpTimezoneLocale::IT => Language::IT,
-            PhpTimezoneLocale::PL => Language::PL,
-            PhpTimezoneLocale::SV => Language::SV,
-        };
-
-        if (!array_key_exists($this->localeCode, $language)) {
-            throw new LogicException(sprintf('Locale code "%s" does not exist.', $this->localeCode));
-        }
-
-        return $language[$this->localeCode];
+        return (new LocaleCode($this->localeCode))->getLanguage();
     }
 
     /**
@@ -366,7 +306,7 @@ readonly class PublicHoliday
      *
      * @throws Exception
      */
-    public function getNextWorkingDay(DateTimeImmutable $day = null, int $distanceWorkingDay = Holiday::DEFAULT_WORKING_DAYS_NEXT_DATE): DateTimeImmutable
+    public function getNextWorkingDay(DateTimeImmutable $day = null, int $distanceWorkingDay = ConfigurationDefault::WORKING_DAYS_NEXT_DATE): DateTimeImmutable
     {
         if (is_null($day)) {
             $day = new DateTimeImmutable();

@@ -17,10 +17,15 @@ use Ahc\Cli\Input\Command;
 use Ahc\Cli\Output\Color;
 use Ahc\Cli\Output\Writer;
 use Exception;
+use Ixnode\PhpPublicHoliday\Configuration\ConfigurationDefault;
 use Ixnode\PhpPublicHoliday\Constant\Country;
 use Ixnode\PhpPublicHoliday\Constant\Format;
 use Ixnode\PhpPublicHoliday\Constant\Locale;
 use Ixnode\PhpPublicHoliday\Constant\State;
+use Ixnode\PhpPublicHoliday\Converter\CountryCode;
+use Ixnode\PhpPublicHoliday\Converter\FormatCode;
+use Ixnode\PhpPublicHoliday\Converter\LocaleCode;
+use Ixnode\PhpPublicHoliday\Converter\StateCode;
 use Ixnode\PhpPublicHoliday\PublicHoliday;
 use Ixnode\PhpTimezone\Constants\Locale as PhpTimezoneLocale;
 use LogicException;
@@ -37,6 +42,7 @@ use LogicException;
  * @property int $year
  * @property string|null $locale
  * @property string|null $format
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class PublicHolidayCommand extends Command
 {
@@ -54,11 +60,14 @@ class PublicHolidayCommand extends Command
         parent::__construct('show:holidays', 'Displays the public holidays.');
 
         $this
+            /* Add arguments. */
             ->argument(
                 'country',
                 sprintf('The country to be used. Supported options: %s', implode(', ', Country::COUNTRIES_SUPPORTED))
             )
             ->argument('state', 'The federal state to be used.')
+
+            /* Add options. */
             ->option('--year', 'The year to be displayed.', 'intval', (int) date('Y'))
             ->option(
                 '--locale',
@@ -101,14 +110,14 @@ class PublicHolidayCommand extends Command
         }
 
         /* Check given country. */
-        $country = $this->filterCountry(country: $this->country);
+        $country = $this->filterCountry(country: $this->country, localeCode: $locale);
         if (is_null($country)) {
             /* Error already printed via self::filterCountry. */
             return self::INVALID;
         }
 
         /* Check given state. */
-        $state = $this->filterState(country: $country, state: $this->state);
+        $state = $this->filterState(country: $country, state: $this->state, localeCode: $locale);
         if (is_null($state)) {
             /* Error already printed via self::filterState. */
             return self::INVALID;
@@ -213,7 +222,7 @@ class PublicHolidayCommand extends Command
         print sprintf('Year:    %d', $holiday->getYear()).PHP_EOL;
         print sprintf('Country: %s (%s)', $holiday->getCountryCode(), $holiday->getCountry()).PHP_EOL;
         print sprintf('State:   %s (%s)', $holiday->getStateCode(), $holiday->getState()).PHP_EOL;
-        print sprintf('Locale:  %s (%s)', $holiday->getLocaleCode(), $holiday->getLocale()).PHP_EOL;
+        print sprintf('Locale:  %s (%s)', $holiday->getLocaleCode(), $holiday->getLanguage()).PHP_EOL;
         print PHP_EOL;
 
         foreach ($holiday->getHolidays() as $holiday) {
@@ -225,45 +234,59 @@ class PublicHolidayCommand extends Command
 
     /**
      * Country filter.
-     *
-     * @param string $country
-     * @return string|null
      */
-    public function filterCountry(string $country): string|null
+    public function filterCountry(string $country, string $localeCode = ConfigurationDefault::LOCALE): string|null
     {
         $country = strtoupper($country);
 
-        if (!in_array($country, Country::COUNTRIES_SUPPORTED, true)) {
-            print sprintf('Invalid country given "%s". Available options: %s', $country, implode(', ', Country::COUNTRIES_SUPPORTED)).PHP_EOL;
-            return null;
+        if (in_array($country, Country::COUNTRIES_SUPPORTED, true)) {
+            return $country;
         }
 
-        return $country;
+        print PHP_EOL;
+        print sprintf('Invalid country given "%s".', $country);
+        print PHP_EOL;
+        print 'Available options:' .PHP_EOL;
+
+        foreach (Country::COUNTRIES_SUPPORTED as $countrySupported) {
+            $countryName = (new CountryCode($countrySupported))->getCountryName($localeCode);
+            print sprintf('- %s (%s)', $countrySupported, $countryName).PHP_EOL;
+        }
+
+        print PHP_EOL;
+        return null;
     }
 
     /**
      * State filter.
-     *
-     * @param string $country
-     * @param string $state
-     * @return string|null
      */
-    public function filterState(string $country, string $state): string|null
+    public function filterState(string $country, string $state, string $localeCode = ConfigurationDefault::LOCALE): string|null
     {
         if (!array_key_exists($country, State::STATES_SUPPORTED)) {
             throw new LogicException(sprintf('Unsupported country given: %s', $country));
         }
 
-        $countriesSupported = State::STATES_SUPPORTED[$country];
+        $statesSupported = State::STATES_SUPPORTED[$country];
 
         $state = strtoupper($state);
 
-        if (!in_array($state, $countriesSupported, true)) {
-            print sprintf('Invalid state given "%s". Available options: %s', $state, implode(', ', $countriesSupported)).PHP_EOL;
-            return null;
+        if (in_array($state, $statesSupported, true)) {
+            return $state;
         }
 
-        return $state;
+        print PHP_EOL;
+        print sprintf('Invalid state given "%s".', $state);
+        print PHP_EOL;
+        print 'Available options:' .PHP_EOL;
+
+        foreach ($statesSupported as $stateSupported) {
+            $stateName = (new StateCode($country, $stateSupported))->getStateName($localeCode);
+            print sprintf('- %s (%s)', $stateSupported, $stateName).PHP_EOL;
+        }
+
+        print PHP_EOL;
+
+        return null;
     }
 
     /**
@@ -275,31 +298,49 @@ class PublicHolidayCommand extends Command
      */
     public function filterLocale(string $locale): string|null
     {
-        $locale = strtolower($locale);
+        $locale = (new LocaleCode($locale))->getLocaleCode();
 
-        if (!in_array($locale, Locale::LOCALES_SUPPORTED, true)) {
-            print sprintf('Invalid language given "%s". Available options: %s', $locale, implode(', ', Locale::LOCALES_SUPPORTED)).PHP_EOL;
-            return null;
+        if (in_array($locale, Locale::LOCALES_SUPPORTED, true)) {
+            return $locale;
         }
 
-        return $locale;
+        print PHP_EOL;
+        print sprintf('Invalid language given "%s".', $locale).PHP_EOL;
+        print PHP_EOL;
+        print 'Available options:' .PHP_EOL;
+
+        foreach (Locale::LOCALES_SUPPORTED as $localeSupported) {
+            $language = (new LocaleCode($localeSupported))->getLanguage();
+            print sprintf('- %s (%s)', $localeSupported, $language).PHP_EOL;
+        }
+
+        print PHP_EOL;
+        return null;
     }
 
     /**
      * Format filter.
      *
-     * @param string $format
-     * @return string|null
      * @throws Exception
      */
     public function filterFormat(string $format): string|null
     {
-        if (!in_array($format, Format::FORMATS_SUPPORTED, true)) {
-            print sprintf('Invalid format given "%s". Available options: %s', $format, implode(', ', Format::FORMATS_SUPPORTED)).PHP_EOL;
-            return null;
+        if (in_array($format, Format::FORMATS_SUPPORTED, true)) {
+            return $format;
         }
 
-        return $format;
+        print PHP_EOL;
+        print sprintf('Invalid format given "%s".', $format).PHP_EOL;
+        print PHP_EOL;
+        print 'Available options:' .PHP_EOL;
+
+        foreach (Format::FORMATS_SUPPORTED as $formatSupported) {
+            $formatName = (new FormatCode($formatSupported))->getFormatName($this->locale ?? ConfigurationDefault::LOCALE);
+            print sprintf('- %s (%s)', $formatSupported, $formatName).PHP_EOL;
+        }
+
+        print PHP_EOL;
+        return null;
     }
 
     /**
