@@ -71,12 +71,14 @@ vendor/bin/php-public-holiday -V
 ```
 
 ```bash
-php-public-holiday 0.1.5 (2024-11-20 16:40:01) - Björn Hempel <bjoern@hempel.li>
+php-public-holiday 0.1.14 (2024-11-23 11:20:29) - Björn Hempel <bjoern@hempel.li>
 ```
 
 ## 5. Command line tool
 
 > Used to quickly check the public holidays.
+
+development mode:
 
 ```bash
 bin/console ph DE SN --year=2024
@@ -127,7 +129,7 @@ Available options:
 * `sv`
 
 ```bash
-bin/console ph DE SN --year=2025 --locale=en --format=text
+vendor/bin/php-public-holiday ph DE SN --year=2025 --locale=en --format=text
 ```
 
 ```bash
@@ -155,7 +157,7 @@ Locale:  en (English)
 ```
 
 ```bash
-bin/console ph AT K --year=2025 --locale=sv --format=text
+vendor/bin/php-public-holiday ph AT K --year=2025 --locale=sv --format=text
 ```
 
 ```bash
@@ -194,7 +196,7 @@ Available options:
 #### JSON
 
 ```bash
-bin/console ph DE SN --year=2025 --format=json
+vendor/bin/php-public-holiday ph DE SN --year=2025 --format=json
 ```
 
 ```json
@@ -216,7 +218,7 @@ bin/console ph DE SN --year=2025 --format=json
 #### CSV
 
 ```bash
-bin/console ph DE SN --year=2025 --format=csv
+vendor/bin/php-public-holiday ph DE SN --year=2025 --format=csv
 ```
 
 ```csv
