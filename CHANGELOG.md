@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Releases
 
+### [1.0.1] - 2024-12-05
+
+* Fix default locale code for command bin/console ph
+
 ### [1.0.0] - 2024-11-23
 
 * Add version 1.0.0
