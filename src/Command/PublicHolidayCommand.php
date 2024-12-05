@@ -27,7 +27,6 @@ use Ixnode\PhpPublicHoliday\Converter\FormatCode;
 use Ixnode\PhpPublicHoliday\Converter\LocaleCode;
 use Ixnode\PhpPublicHoliday\Converter\StateCode;
 use Ixnode\PhpPublicHoliday\PublicHoliday;
-use Ixnode\PhpTimezone\Constants\Locale as PhpTimezoneLocale;
 use LogicException;
 
 /**
@@ -73,7 +72,7 @@ class PublicHolidayCommand extends Command
                 '--locale',
                 sprintf('The locale to be displayed. Supported options: %s', implode(', ', Locale::LOCALES_SUPPORTED)),
                 $this->filterLocale(...),
-                PhpTimezoneLocale::DE
+                ConfigurationDefault::LOCALE
             )
             ->option(
                 '--format',
