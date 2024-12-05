@@ -30,7 +30,7 @@ $country = 'DE';
 $state = 'SN';
 $locale = 'de';
 
-$holiday = new Holiday(year: $year, countryCode: $country, stateCode: $state, localeCode: $locale);
+$holiday = new PublicHoliday(year: $year, countryCode: $country, stateCode: $state, localeCode: $locale);
 
 print_r($holiday->getHolidays());
 // (array) [Ixnode\PhpPublicHoliday\PublicHolidayItem Object, ...]

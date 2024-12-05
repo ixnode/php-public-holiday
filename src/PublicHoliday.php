@@ -43,14 +43,19 @@ use LogicException;
  */
 readonly class PublicHoliday
 {
+    private string $localeCode;
+
     public function __construct(
         private int $year,
         private string $countryCode = CountryEurope::COUNTRY_CODE_DE,
         private string $stateCode = StateDe::STATE_CODE_ALL,
-        private string $localeCode = ConfigurationDefault::LOCALE,
+        string $localeCode = ConfigurationDefault::LOCALE,
         private int $preGenerationYears = ConfigurationDefault::PRE_GENERATION_YEARS,
     )
     {
+        /* Translate locale code. */
+        $this->localeCode = (new LocaleCode($localeCode))->getLocaleCode();
+        
         /* Validate pre-generation years. */
         if ($preGenerationYears < ConfigurationDefault::PRE_GENERATION_YEARS_MIN) {
             throw new LogicException('Pre-generation years must be at least 1');
